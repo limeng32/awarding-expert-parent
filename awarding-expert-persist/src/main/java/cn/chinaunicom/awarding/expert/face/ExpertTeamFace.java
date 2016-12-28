@@ -1,5 +1,7 @@
 package cn.chinaunicom.awarding.expert.face;
 
-public interface ExpertTeamFace {
+import cn.chinaunicom.awarding.expert.persist.Award;
 
+public interface ExpertTeamFace {
+	void setAward(Award award);
 }

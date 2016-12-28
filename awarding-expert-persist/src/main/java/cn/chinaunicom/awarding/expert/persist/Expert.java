@@ -3,26 +3,32 @@ package cn.chinaunicom.awarding.expert.persist;
 import java.io.Serializable;
 
 import limeng32.mirage.util.pojo.PojoSupport;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
+
+import org.apache.ibatis.type.JdbcType;
+
 import cn.chinaunicom.awarding.account.persist.Account;
+import cn.chinaunicom.awarding.expert.face.AcceptionFace;
+import cn.chinaunicom.awarding.expert.face.ExpertAvoidsFace;
 import cn.chinaunicom.awarding.expert.face.ExpertTeamExpertFace;
-import cn.chinaunicom.awarding.project.face.AcceptionFace;
-import cn.chinaunicom.awarding.project.face.ExpertAvoidsFace;
-import cn.chinaunicom.awarding.project.face.TaskExpertFace;
-import cn.chinaunicom.awarding.project.face.VoteFace;
+import cn.chinaunicom.awarding.expert.face.TaskExpertFace;
+import cn.chinaunicom.awarding.expert.face.VoteFace;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-/**
- * 专家
- * 
- */
+@TableMapperAnnotation(tableName = "expert")
 public class Expert extends PojoSupport<Expert> implements Serializable,
-		cn.chinaunicom.awarding.account.face.ExpertFace {
+		cn.chinaunicom.awarding.account.face.ExpertFace,
+		cn.chinaunicom.awarding.expert.face.ExpertFace {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 主键，以UUID方式保存
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "expert_id", jdbcType = JdbcType.VARCHAR, isUniqueKey = true)
 	private java.lang.String id;
 	/**
 	 * 乐观锁
@@ -30,6 +36,7 @@ public class Expert extends PojoSupport<Expert> implements Serializable,
 	 */
 	private Integer opLock;
 
+	@FieldMapperAnnotation(dbFieldName = "account_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "account_id")
 	public Account account;
 
 	private java.util.Collection<AcceptionFace> acception;
@@ -41,6 +48,19 @@ public class Expert extends PojoSupport<Expert> implements Serializable,
 	private java.util.Collection<VoteFace> vote;
 
 	private java.util.Collection<ExpertTeamExpertFace> expertTeamExpert;
+
+	public Integer getOpLock() {
+		return opLock;
+	}
+
+	@Override
+	public String getId() {
+		return id;
+	}
+
+	public void setId(java.lang.String id) {
+		this.id = id;
+	}
 
 	public Account getAccount() {
 		return account;
@@ -429,4 +449,5 @@ public class Expert extends PojoSupport<Expert> implements Serializable,
 			expertTeamExpert.clear();
 		}
 	}
+
 }
