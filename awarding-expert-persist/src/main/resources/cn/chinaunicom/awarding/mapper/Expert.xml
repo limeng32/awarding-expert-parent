@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.chinaunicom.awarding.mapper.ExpertMapper">
+	<cache />
+
+	<select id="select" resultMap="result">#{id}</select>
+
+	<select id="selectAll" resultMap="result">#{cacheKey}</select>
+
+	<select id="count" resultType="int">#{cacheKey}</select>
+
+	<insert id="insert">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(), '-', '')
+		</selectKey>
+	</insert>
+
+	<update id="update" />
+
+	<update id="updatePersistent" />
+
+	<delete id="delete" />
+
+	<resultMap id="result" type="Expert" autoMapping="true">
+		<id property="id" column="expert_id" />
+		<association property="account" javaType="Account"
+			select="cn.chinaunicom.awarding.mapper.AccountMapper.select" column="account_id" />
+	</resultMap>
+</mapper>
