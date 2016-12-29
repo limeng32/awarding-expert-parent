@@ -1,5 +1,7 @@
 package cn.chinaunicom.awarding.expert.face;
 
-public interface AcceptionBucketFace {
+import cn.chinaunicom.awarding.expert.persist.Acception;
 
+public interface AcceptionBucketFace {
+	void setAcception(Acception acception);
 }

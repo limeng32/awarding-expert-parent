@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import limeng32.mirage.util.pojo.PojoSupport;
 import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.OpLockType;
 import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
 
 import org.apache.ibatis.type.JdbcType;
@@ -34,6 +35,8 @@ public class Expert extends PojoSupport<Expert> implements Serializable,
 	 * 乐观锁
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "opLock", jdbcType = JdbcType.INTEGER, opLockType = OpLockType.Version)
+	@JSONField(serialize = false)
 	private Integer opLock;
 
 	@FieldMapperAnnotation(dbFieldName = "account_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "account_id")
