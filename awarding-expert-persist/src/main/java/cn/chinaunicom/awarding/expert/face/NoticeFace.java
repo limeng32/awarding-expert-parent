@@ -1,5 +1,7 @@
 package cn.chinaunicom.awarding.expert.face;
 
-public interface NoticeFace {
+import cn.chinaunicom.awarding.project.persist.Task;
 
+public interface NoticeFace {
+	void setTask(Task task);
 }

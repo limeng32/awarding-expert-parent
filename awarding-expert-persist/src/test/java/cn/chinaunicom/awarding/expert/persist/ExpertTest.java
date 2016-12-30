@@ -1,5 +1,7 @@
 package cn.chinaunicom.awarding.expert.persist;
 
+import java.util.Collection;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,17 +32,44 @@ import com.github.springtestdbunit.dataset.FlatXmlDataSetLoader;
 public class ExpertTest {
 
 	@Autowired
+	private AcceptionService acceptionService;
+
+	@Autowired
 	private ExpertService expertService;
 
 	@Test
 	@IfProfileValue(name = "VOLATILE", value = "true")
-	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTest.testSelect.xml")
-	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTest.testSelect.result.xml")
-	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTest.testSelect.result.xml")
+	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTest/testSelect.xml")
+	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTest/testSelect.result.xml")
+	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTest/testSelect.result.xml")
 	public void testSelect() {
 		Expert expert = expertService.select("e");
 		Assert.assertEquals("a", expert.getAccount().getId());
 		expertService.update(expert);
 	}
 
+	@Test
+	@IfProfileValue(name = "VOLATILE", value = "true")
+	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTest/testLoad.xml")
+	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTest/testLoad.result.xml")
+	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTest/testLoad.result.xml")
+	public void testLoad() {
+		Expert expert = expertService.select("e");
+		acceptionService.loadExpert(expert, new Acception());
+		Assert.assertEquals(2, expert.getAcception().size());
+	}
+
+	@Test
+	@IfProfileValue(name = "VOLATILE", value = "true")
+	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTest/testUpdate.xml")
+	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTest/testUpdate.result.xml")
+	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTest/testUpdate.result.xml")
+	public void testUpdate() {
+		Collection<Expert> experts = expertService.selectAll(new Expert());
+		Assert.assertEquals(2, experts.size());
+		Expert e = expertService.select("e1");
+		expertService.delete(e);
+		Collection<Expert> experts2 = expertService.selectAll(new Expert());
+		Assert.assertEquals(1, experts2.size());
+	}
 }

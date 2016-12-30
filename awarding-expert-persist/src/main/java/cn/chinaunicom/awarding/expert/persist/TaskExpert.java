@@ -18,6 +18,7 @@ public class TaskExpert extends PojoSupport<TaskExpert> implements
 	private java.lang.String id;
 
 	private Expert expert;
+
 	private Task task;
 
 	public Expert getExpert() {

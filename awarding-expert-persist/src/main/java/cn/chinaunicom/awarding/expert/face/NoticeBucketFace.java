@@ -1,5 +1,7 @@
 package cn.chinaunicom.awarding.expert.face;
 
-public interface NoticeBucketFace {
+import cn.chinaunicom.awarding.expert.persist.Notice;
 
+public interface NoticeBucketFace {
+	void setNotice(Notice notice);
 }

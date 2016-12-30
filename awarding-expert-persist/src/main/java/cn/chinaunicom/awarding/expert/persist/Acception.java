@@ -3,6 +3,12 @@ package cn.chinaunicom.awarding.expert.persist;
 import java.io.Serializable;
 
 import limeng32.mirage.util.pojo.PojoSupport;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.OpLockType;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
+
+import org.apache.ibatis.type.JdbcType;
+
 import cn.chinaunicom.awarding.expert.face.AcceptionBucketFace;
 import cn.chinaunicom.awarding.expert.face.ExpertAvoidsFace;
 import cn.chinaunicom.awarding.expert.face.ResultFace;
@@ -11,6 +17,7 @@ import cn.chinaunicom.awarding.project.persist.Project;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+@TableMapperAnnotation(tableName = "acception")
 public class Acception extends PojoSupport<Acception> implements Serializable,
 		cn.chinaunicom.awarding.project.face.AcceptionFace,
 		cn.chinaunicom.awarding.expert.face.AcceptionFace {
@@ -21,20 +28,28 @@ public class Acception extends PojoSupport<Acception> implements Serializable,
 	 * 主键，以UUID方式保存
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "acception_id", jdbcType = JdbcType.VARCHAR, isUniqueKey = true)
 	private java.lang.String id;
+
 	/**
 	 * 参评项目名称
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "name", jdbcType = JdbcType.VARCHAR)
 	private java.lang.String name;
+
 	/**
 	 * 乐观锁
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "opLock", jdbcType = JdbcType.INTEGER, opLockType = OpLockType.Version)
+	@JSONField(serialize = false)
 	private Integer opLock;
 
+	@FieldMapperAnnotation(dbFieldName = "project_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "project_id")
 	private Project project;
 
+	@FieldMapperAnnotation(dbFieldName = "expert_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "expert_id")
 	private Expert expert;
 
 	private java.util.Collection<AcceptionBucketFace> acceptionBucket;
