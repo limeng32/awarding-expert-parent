@@ -3,12 +3,18 @@ package cn.chinaunicom.awarding.expert.persist;
 import java.io.Serializable;
 
 import limeng32.mirage.util.pojo.PojoSupport;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
+
+import org.apache.ibatis.type.JdbcType;
+
 import cn.chinaunicom.awarding.expert.face.ExpertTeamFace;
 import cn.chinaunicom.awarding.expert.face.ResultFace;
 import cn.chinaunicom.awarding.expert.face.VoteFace;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+@TableMapperAnnotation(tableName = "award")
 public class Award extends PojoSupport<Award> implements Serializable,
 		cn.chinaunicom.awarding.expert.face.AwardFace {
 
@@ -18,12 +24,14 @@ public class Award extends PojoSupport<Award> implements Serializable,
 	 * 主键，以UUID方式保存
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "award_id", jdbcType = JdbcType.VARCHAR, isUniqueKey = true)
 	public java.lang.String id;
 
 	/**
 	 * 奖项名称
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "name", jdbcType = JdbcType.VARCHAR)
 	public java.lang.String name;
 
 	public java.util.Collection<VoteFace> vote;
@@ -39,6 +47,14 @@ public class Award extends PojoSupport<Award> implements Serializable,
 
 	public void setId(java.lang.String id) {
 		this.id = id;
+	}
+
+	public java.lang.String getName() {
+		return name;
+	}
+
+	public void setName(java.lang.String name) {
+		this.name = name;
 	}
 
 	public java.util.Collection<VoteFace> getVote() {

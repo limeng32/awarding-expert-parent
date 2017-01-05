@@ -37,8 +37,7 @@ public class ExpertTeam extends PojoSupport<ExpertTeam> implements
 	@FieldMapperAnnotation(dbFieldName = "task_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "task_id")
 	private Task task;
 
-	// @FieldMapperAnnotation(dbFieldName = "award_id", jdbcType =
-	// JdbcType.VARCHAR, dbAssociationUniqueKey = "award_id")
+	@FieldMapperAnnotation(dbFieldName = "award_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "award_id")
 	private Award award;
 
 	private java.util.Collection<ExpertTeamExpertFace> expertTeamExpert;

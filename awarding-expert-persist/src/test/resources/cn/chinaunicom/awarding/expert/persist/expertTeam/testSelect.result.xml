@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-	<EXPERTTEAM EXPERTTEAM_ID="e" NAME="name" TASK_ID="t" />
+	<AWARD AWARD_ID="a" NAME="name" />
+	<EXPERTTEAM EXPERTTEAM_ID="e" AWARD_ID="a" NAME="name1"
+		TASK_ID="t" />
 	<EXPERTTEAM EXPERTTEAM_ID="e2" NAME="name2" TASK_ID="t" />
-	<EXPERTTEAM EXPERTTEAM_ID="e3" NAME="name3" TASK_ID="t2" />
 	<TASK TASK_ID="t" NAME="taskName" />
 	<TASK TASK_ID="t2" NAME="taskName2" />
 </dataset>

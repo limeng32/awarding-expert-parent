@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.chinaunicom.awarding.mapper.ExpertTeamMapper">
+<mapper namespace="cn.chinaunicom.awarding.mapper.AwardMapper">
 	<cache />
 
 	<select id="select" resultMap="result">#{id}</select>
@@ -21,11 +21,7 @@
 
 	<delete id="delete" />
 
-	<resultMap id="result" type="ExpertTeam" autoMapping="true">
-		<id property="id" column="expertTeam_id" />
-		<association property="task" javaType="Task"
-			select="cn.chinaunicom.awarding.mapper.TaskMapper.select" column="task_id" />
-		<association property="award" javaType="Award"
-			select="cn.chinaunicom.awarding.mapper.AwardMapper.select" column="award_id" />
+	<resultMap id="result" type="Award" autoMapping="true">
+		<id property="id" column="award_id" />
 	</resultMap>
 </mapper>
