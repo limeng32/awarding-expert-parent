@@ -3,8 +3,14 @@ package cn.chinaunicom.awarding.expert.persist;
 import java.io.Serializable;
 
 import limeng32.mirage.util.pojo.PojoSupport;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
+
+import org.apache.ibatis.type.JdbcType;
+
 import cn.chinaunicom.awarding.project.persist.Task;
 
+@TableMapperAnnotation(tableName = "vote")
 public class Vote extends PojoSupport<Vote> implements Serializable,
 		cn.chinaunicom.awarding.project.face.VoteFace,
 		cn.chinaunicom.awarding.expert.face.VoteFace {
@@ -15,24 +21,33 @@ public class Vote extends PojoSupport<Vote> implements Serializable,
 	 * 主键，以UUID方式保存
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "vote_id", jdbcType = JdbcType.VARCHAR, isUniqueKey = true)
 	private java.lang.String id;
+
 	/**
 	 * 状态值，对应枚举类变量，包括“分组投票、集中投票、答辩投票”等状态
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "status", jdbcType = JdbcType.CHAR)
 	private java.lang.String status;
+
 	/**
 	 * 级别值，对应枚举类变量，包括“一等奖、二等奖、三等奖、优秀奖”等级别
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "level", jdbcType = JdbcType.CHAR)
 	private java.lang.String level;
 
+	@FieldMapperAnnotation(dbFieldName = "task_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "task_id")
 	private Task task;
 
+	@FieldMapperAnnotation(dbFieldName = "expert_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "expert_id")
 	private Expert expert;
 
+	@FieldMapperAnnotation(dbFieldName = "acception_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "acception_id")
 	private Acception acception;
 
+	@FieldMapperAnnotation(dbFieldName = "award_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "award_id")
 	private Award award;
 
 	@Override
