@@ -3,11 +3,17 @@ package cn.chinaunicom.awarding.expert.persist;
 import java.io.Serializable;
 
 import limeng32.mirage.util.pojo.PojoSupport;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
+
+import org.apache.ibatis.type.JdbcType;
+
 import cn.chinaunicom.awarding.expert.face.ExpertTeamExpertFace;
 import cn.chinaunicom.awarding.project.persist.Task;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+@TableMapperAnnotation(tableName = "expertTeam")
 public class ExpertTeam extends PojoSupport<ExpertTeam> implements
 		Serializable, cn.chinaunicom.awarding.project.face.ExpertTeamFace,
 		cn.chinaunicom.awarding.expert.face.ExpertTeamFace {
@@ -18,18 +24,24 @@ public class ExpertTeam extends PojoSupport<ExpertTeam> implements
 	 * 主键，以UUID方式保存
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "expertTeam_id", jdbcType = JdbcType.VARCHAR, isUniqueKey = true)
 	private java.lang.String id;
+
 	/**
 	 * 小组名称
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "name", jdbcType = JdbcType.VARCHAR)
 	private java.lang.String name;
 
-	private java.util.Collection<ExpertTeamExpertFace> expertTeamExpert;
-
+	@FieldMapperAnnotation(dbFieldName = "task_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "task_id")
 	private Task task;
 
+	// @FieldMapperAnnotation(dbFieldName = "award_id", jdbcType =
+	// JdbcType.VARCHAR, dbAssociationUniqueKey = "award_id")
 	private Award award;
+
+	private java.util.Collection<ExpertTeamExpertFace> expertTeamExpert;
 
 	@Override
 	public String getId() {

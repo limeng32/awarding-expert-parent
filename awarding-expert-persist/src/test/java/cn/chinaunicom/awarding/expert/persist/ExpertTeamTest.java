@@ -1,6 +1,7 @@
 package cn.chinaunicom.awarding.expert.persist;
 
-import org.junit.Assert;
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+
+import cn.chinaunicom.awarding.project.persist.Task;
+import cn.chinaunicom.awarding.project.persist.TaskService;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
@@ -27,25 +31,29 @@ import com.github.springtestdbunit.dataset.FlatXmlDataSetLoader;
 		DirtiesContextTestExecutionListener.class,
 		DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(dataSetLoader = FlatXmlDataSetLoader.class)
-public class AcceptionTest {
+public class ExpertTeamTest {
 
 	@Autowired
-	private AcceptionService acceptionService;
+	private ExpertTeamService expertTeamService;
 
 	@Autowired
-	private ExpertService expertService;
+	private TaskService taskService;
 
 	@Test
 	@IfProfileValue(name = "VOLATILE", value = "true")
-	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/cn/chinaunicom/awarding/expert/persist/Acception/testSelect.xml")
-	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/Acception/testSelect.result.xml")
-	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/Acception/testSelect.result.xml")
+	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTeam/testSelect.xml")
+	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTeam/testSelect.result.xml")
+	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTeam/testSelect.result.xml")
 	public void testSelect() {
-		Acception acception = acceptionService.select("a");
-		Assert.assertEquals("e", acception.getExpert().getId());
-		Assert.assertEquals("p", acception.getProject().getId());
-		acception.setName("new");
-		acceptionService.update(acception);
+		ExpertTeam expertTeam = expertTeamService.select("e");
+		Assert.assertEquals("name", expertTeam.getName());
+		Assert.assertEquals("taskName", expertTeam.getTask().getName());
+		expertTeam.setName("name1");
+		expertTeamService.update(expertTeam);
+		Task task = taskService.select("t");
+		expertTeamService.loadTask(task, new ExpertTeam());
+		Assert.assertEquals(2, task.getExpertTeam().size());
+		ExpertTeam expertTeam3 = expertTeamService.select("e3");
+		expertTeamService.delete(expertTeam3);
 	}
-
 }

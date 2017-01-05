@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<EXPERTTEAM EXPERTTEAM_ID="e" NAME="name1" TASK_ID="t" />
+	<EXPERTTEAM EXPERTTEAM_ID="e2" NAME="name2" TASK_ID="t" />
+	<TASK TASK_ID="t" NAME="taskName" />
+	<TASK TASK_ID="t2" NAME="taskName2" />
+</dataset>

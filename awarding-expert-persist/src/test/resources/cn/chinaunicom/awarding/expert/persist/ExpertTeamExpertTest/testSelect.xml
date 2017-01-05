@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<dataset>
-	<EXPERT EXPERT_ID="e" OPLOCK="0" />
-	<EXPERT EXPERT_ID="e2" OPLOCK="0" />
-	<EXPERTTEAMEXPERT EXPERT_ID="e" EXPERTTEAMEXPERT_ID="e" />
-</dataset>
