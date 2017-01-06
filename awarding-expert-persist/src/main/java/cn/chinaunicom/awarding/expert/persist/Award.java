@@ -25,20 +25,20 @@ public class Award extends PojoSupport<Award> implements Serializable,
 	 * 
 	 */
 	@FieldMapperAnnotation(dbFieldName = "award_id", jdbcType = JdbcType.VARCHAR, isUniqueKey = true)
-	public java.lang.String id;
+	private java.lang.String id;
 
 	/**
 	 * 奖项名称
 	 * 
 	 */
 	@FieldMapperAnnotation(dbFieldName = "name", jdbcType = JdbcType.VARCHAR)
-	public java.lang.String name;
+	private java.lang.String name;
 
-	public java.util.Collection<VoteFace> vote;
+	private java.util.Collection<VoteFace> vote;
 
-	public java.util.Collection<ResultFace> result;
+	private java.util.Collection<ResultFace> result;
 
-	public java.util.Collection<ExpertTeamFace> expertTeam;
+	private java.util.Collection<ExpertTeamFace> expertTeam;
 
 	@Override
 	public String getId() {

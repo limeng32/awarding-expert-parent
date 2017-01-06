@@ -3,11 +3,17 @@ package cn.chinaunicom.awarding.expert.persist;
 import java.io.Serializable;
 
 import limeng32.mirage.util.pojo.PojoSupport;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
+
+import org.apache.ibatis.type.JdbcType;
+
 import cn.chinaunicom.awarding.expert.face.GalleryFace;
 import cn.chinaunicom.awarding.project.persist.Task;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+@TableMapperAnnotation(tableName = "result")
 public class Result extends PojoSupport<Result> implements Serializable,
 		cn.chinaunicom.awarding.project.face.ResultFace,
 		cn.chinaunicom.awarding.expert.face.ResultFace {
@@ -18,20 +24,26 @@ public class Result extends PojoSupport<Result> implements Serializable,
 	 * 主键，以UUID方式保存
 	 * 
 	 */
-	public java.lang.String id;
+	@FieldMapperAnnotation(dbFieldName = "result_id", jdbcType = JdbcType.VARCHAR, isUniqueKey = true)
+	private java.lang.String id;
+
 	/**
 	 * 级别值，对应枚举类变量，包括“一等奖、二等奖、三等奖、优秀奖”等级别
 	 * 
 	 */
-	public java.lang.String level;
+	@FieldMapperAnnotation(dbFieldName = "level", jdbcType = JdbcType.CHAR)
+	private java.lang.String level;
 
-	public java.util.Collection<GalleryFace> gallery;
+	@FieldMapperAnnotation(dbFieldName = "award_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "award_id")
+	private Award award;
 
-	public Award award;
+	@FieldMapperAnnotation(dbFieldName = "acception_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "acception_id")
+	private Acception acception;
 
-	public Acception acception;
+	@FieldMapperAnnotation(dbFieldName = "task_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "task_id")
+	private Task task;
 
-	public Task task;
+	private java.util.Collection<GalleryFace> gallery;
 
 	@Override
 	public String getId() {

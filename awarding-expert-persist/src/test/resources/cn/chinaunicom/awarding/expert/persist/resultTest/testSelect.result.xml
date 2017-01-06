@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<ACCEPTION ACCEPTION_ID="a" />
+	<ACCEPTION ACCEPTION_ID="a2" />
+
+	<AWARD AWARD_ID="aw" />
+	<AWARD AWARD_ID="aw2" />
+
+	<RESULT RESULT_id="r" ACCEPTION_ID="a2" AWARD_ID="aw2" TASK_ID="t2" />
+
+	<TASK TASK_ID="t" />
+	<TASK TASK_ID="t2" />
+</dataset>
