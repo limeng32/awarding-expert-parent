@@ -3,7 +3,12 @@ package cn.chinaunicom.awarding.expert.persist;
 import java.io.Serializable;
 
 import limeng32.mirage.util.pojo.PojoSupport;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
 
+import org.apache.ibatis.type.JdbcType;
+
+@TableMapperAnnotation(tableName = "gallery")
 public class Gallery extends PojoSupport<Gallery> implements Serializable,
 		cn.chinaunicom.awarding.expert.face.GalleryFace {
 
@@ -13,22 +18,32 @@ public class Gallery extends PojoSupport<Gallery> implements Serializable,
 	 * 主键，以UUID方式保存
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "gallery_id", jdbcType = JdbcType.VARCHAR, isUniqueKey = true)
 	private java.lang.String id;
+
 	/**
 	 * 创建时间
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "createTime", jdbcType = JdbcType.TIMESTAMP)
 	private java.util.Date createTime;
+
 	/**
 	 * 封面图url
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "surface", jdbcType = JdbcType.VARCHAR)
 	private java.lang.String surface;
+
 	/**
 	 * 简介
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "synopsis", jdbcType = JdbcType.VARCHAR)
 	private java.lang.String synopsis;
+
+	@FieldMapperAnnotation(dbFieldName = "result_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "result_id")
+	private Result result;
 
 	@Override
 	public String getId() {
@@ -62,8 +77,6 @@ public class Gallery extends PojoSupport<Gallery> implements Serializable,
 	public void setSynopsis(java.lang.String synopsis) {
 		this.synopsis = synopsis;
 	}
-
-	private Result result;
 
 	public Result getResult() {
 		return result;

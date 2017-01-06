@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<GALLERY GALLERY_ID="g" RESULT_ID="r" SURFACE="old" />
+	<GALLERY GALLERY_ID="g2" />
+
+	<RESULT RESULT_ID="r" />
+	<RESULT RESULT_ID="r2" />
+</dataset>
