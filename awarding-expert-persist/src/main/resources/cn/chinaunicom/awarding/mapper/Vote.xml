@@ -22,7 +22,7 @@
 	<delete id="delete" />
 
 	<resultMap id="result" type="Vote" autoMapping="true">
-		<id property="id" column="award_id" />
+		<id property="id" column="vote_id" />
 		<association property="task" javaType="Task"
 			select="cn.chinaunicom.awarding.mapper.TaskMapper.select" column="task_id" />
 		<association property="expert" javaType="Expert"

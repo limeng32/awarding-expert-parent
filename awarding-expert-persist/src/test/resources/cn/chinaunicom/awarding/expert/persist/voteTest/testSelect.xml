@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<ACCEPTION ACCEPTION_id="a" />
+	<ACCEPTION ACCEPTION_id="a2" />
+	<AWARD AWARD_ID="a" />
+	<AWARD AWARD_ID="a2" />
+	<EXPERT EXPERT_ID="e" />
+	<EXPERT EXPERT_ID="e2" />
+	<TASK TASK_ID="t" />
+	<TASK TASK_ID="t2" />
+	<VOTE VOTE_ID="v" ACCEPTION_ID="a" AWARD_ID="a" EXPERT_ID="e"
+		TASK_ID="t" />
+	<VOTE VOTE_ID="v2" />
+</dataset>
