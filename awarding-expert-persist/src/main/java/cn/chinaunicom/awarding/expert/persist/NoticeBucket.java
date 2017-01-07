@@ -3,7 +3,12 @@ package cn.chinaunicom.awarding.expert.persist;
 import java.io.Serializable;
 
 import limeng32.mirage.util.pojo.PojoSupport;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
 
+import org.apache.ibatis.type.JdbcType;
+
+@TableMapperAnnotation(tableName = "noticeBucket")
 public class NoticeBucket extends PojoSupport<NoticeBucket> implements
 		Serializable, cn.chinaunicom.awarding.expert.face.NoticeBucketFace {
 
@@ -13,13 +18,17 @@ public class NoticeBucket extends PojoSupport<NoticeBucket> implements
 	 * 主键，以UUID方式保存
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "noticeBucket_id", jdbcType = JdbcType.VARCHAR, isUniqueKey = true)
 	private java.lang.String id;
+
 	/**
 	 * 内容
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "content", jdbcType = JdbcType.VARCHAR)
 	private java.lang.String content;
 
+	@FieldMapperAnnotation(dbFieldName = "notice_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "notice_id")
 	private Notice notice;
 
 	@Override
