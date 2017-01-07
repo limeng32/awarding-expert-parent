@@ -3,11 +3,17 @@ package cn.chinaunicom.awarding.expert.persist;
 import java.io.Serializable;
 
 import limeng32.mirage.util.pojo.PojoSupport;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
+
+import org.apache.ibatis.type.JdbcType;
+
 import cn.chinaunicom.awarding.expert.face.NoticeBucketFace;
 import cn.chinaunicom.awarding.project.persist.Task;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+@TableMapperAnnotation(tableName = "notice")
 public class Notice extends PojoSupport<Notice> implements Serializable,
 		cn.chinaunicom.awarding.project.face.NoticeFace,
 		cn.chinaunicom.awarding.expert.face.NoticeFace {
@@ -18,16 +24,20 @@ public class Notice extends PojoSupport<Notice> implements Serializable,
 	 * 主键，以UUID方式保存
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "notice_id", jdbcType = JdbcType.VARCHAR, isUniqueKey = true)
 	private java.lang.String id;
+
 	/**
 	 * 状态值，对应枚举类变量，包括“项目申报须知、评审会会议须知”等状态
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "status", jdbcType = JdbcType.VARCHAR)
 	private java.lang.String status;
 
-	private java.util.Collection<NoticeBucketFace> noticeBucket;
-
+	@FieldMapperAnnotation(dbFieldName = "task_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "task_id")
 	private Task task;
+
+	private java.util.Collection<NoticeBucketFace> noticeBucket;
 
 	@Override
 	public String getId() {
