@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<ACCEPTION ACCEPTION_ID="a" />
+	<ACCEPTION ACCEPTION_ID="a2" />
+
+	<EXPERT EXPERT_ID="e" />
+	<EXPERT EXPERT_ID="e2" />
+
+	<EXPERTAVOIDS EXPERTAVOIDS_ID="e" ACCEPTION_ID="a"
+		EXPERT_ID="e" TASK_ID="t" />
+	<EXPERTAVOIDS EXPERTAVOIDS_ID="e2" />
+
+	<TASK TASK_ID="t" />
+	<TASK TASK_ID="t2" />
+</dataset>
