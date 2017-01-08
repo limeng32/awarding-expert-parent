@@ -11,6 +11,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
+import cn.chinaunicom.awarding.project.persist.Project;
+import cn.chinaunicom.awarding.project.persist.ProjectService;
+
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -35,17 +38,32 @@ public class AcceptionTest {
 	@Autowired
 	private ExpertService expertService;
 
+	@Autowired
+	private ProjectService projectService;
+
 	@Test
 	@IfProfileValue(name = "VOLATILE", value = "true")
-	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/cn/chinaunicom/awarding/expert/persist/Acception/testSelect.xml")
-	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/Acception/testSelect.result.xml")
-	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/Acception/testSelect.result.xml")
+	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/cn/chinaunicom/awarding/expert/persist/acceptionTest/testSelect.xml")
+	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/acceptionTest/testSelect.result.xml")
+	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/acceptionTest/testSelect.result.xml")
 	public void testSelect() {
+		Expert expert = expertService.select("e");
+		acceptionService.loadExpert(expert, new Acception());
+		Assert.assertEquals(1, expert.getAcception().size());
+
+		Project project = projectService.select("p");
+		acceptionService.loadProject(project, new Acception());
+		Assert.assertEquals(1, project.getAcception().size());
+
 		Acception acception = acceptionService.select("a");
-		Assert.assertEquals("e", acception.getExpert().getId());
-		Assert.assertEquals("p", acception.getProject().getId());
+		Assert.assertEquals("old", acception.getName());
 		acception.setName("new");
+		acception.setExpert(expertService.select("e2"));
+		acception.setProject(projectService.select("p2"));
 		acceptionService.update(acception);
+
+		Acception acception2 = acceptionService.select("a2");
+		acceptionService.delete(acception2);
 	}
 
 }

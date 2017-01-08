@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<dataset>
-	<ACCEPTION ACCEPTION_ID="a" EXPERT_ID="e" NAME="new"
-		PROJECT_ID="p" OPLOCK="1" />
-	<EXPERT EXPERT_ID="e" OPLOCK="0" />
-	<PROJECT PROJECT_ID="p" OPLOCK="0" />
-</dataset>
