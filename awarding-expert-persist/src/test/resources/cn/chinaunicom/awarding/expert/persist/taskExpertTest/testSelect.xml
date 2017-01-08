@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<EXPERT EXPERT_ID="e" />
+	<EXPERT EXPERT_ID="e2" />
+
+	<TASK TASK_ID="t" />
+	<TASK TASK_ID="t2" />
+
+	<TASKEXPERT TASKEXPERT_ID="te" EXPERT_ID="e" TASK_ID="t" />
+	<TASKEXPERT TASKEXPERT_ID="te2" />
+</dataset>

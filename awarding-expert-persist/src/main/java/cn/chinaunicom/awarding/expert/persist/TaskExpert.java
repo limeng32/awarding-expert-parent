@@ -3,8 +3,14 @@ package cn.chinaunicom.awarding.expert.persist;
 import java.io.Serializable;
 
 import limeng32.mirage.util.pojo.PojoSupport;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
+
+import org.apache.ibatis.type.JdbcType;
+
 import cn.chinaunicom.awarding.project.persist.Task;
 
+@TableMapperAnnotation(tableName = "taskExpert")
 public class TaskExpert extends PojoSupport<TaskExpert> implements
 		Serializable, cn.chinaunicom.awarding.project.face.TaskExpertFace,
 		cn.chinaunicom.awarding.expert.face.TaskExpertFace {
@@ -15,10 +21,13 @@ public class TaskExpert extends PojoSupport<TaskExpert> implements
 	 * 主键，以UUID方式保存
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "taskExpert_id", jdbcType = JdbcType.VARCHAR, isUniqueKey = true)
 	private java.lang.String id;
 
+	@FieldMapperAnnotation(dbFieldName = "expert_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "expert_id")
 	private Expert expert;
 
+	@FieldMapperAnnotation(dbFieldName = "task_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "task_id")
 	private Task task;
 
 	public Expert getExpert() {
