@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<ACCEPTION ACCEPTION_ID="a" />
+	<ACCEPTION ACCEPTION_ID="a2" />
+
+	<ACCEPTIONBUCKET ACCEPTIONBUCKET_ID="ab" ACCEPTION_ID="a2"
+		REVIEW="new" />
+</dataset>

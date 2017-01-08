@@ -3,7 +3,12 @@ package cn.chinaunicom.awarding.expert.persist;
 import java.io.Serializable;
 
 import limeng32.mirage.util.pojo.PojoSupport;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
+import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
 
+import org.apache.ibatis.type.JdbcType;
+
+@TableMapperAnnotation(tableName = "acceptionBucket")
 public class AcceptionBucket extends PojoSupport<AcceptionBucket> implements
 		Serializable, cn.chinaunicom.awarding.expert.face.AcceptionBucketFace {
 
@@ -13,13 +18,17 @@ public class AcceptionBucket extends PojoSupport<AcceptionBucket> implements
 	 * 主键，以UUID方式保存
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "acceptionBucket_id", jdbcType = JdbcType.VARCHAR, isUniqueKey = true)
 	private java.lang.String id;
+
 	/**
 	 * 评审意见
 	 * 
 	 */
+	@FieldMapperAnnotation(dbFieldName = "review", jdbcType = JdbcType.VARCHAR)
 	private java.lang.String review;
 
+	@FieldMapperAnnotation(dbFieldName = "acception_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "acception_id")
 	private Acception acception;
 
 	@Override
