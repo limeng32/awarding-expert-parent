@@ -66,4 +66,30 @@ public class AcceptionTest {
 		acceptionService.delete(acception2);
 	}
 
+	@Test
+	@IfProfileValue(name = "CACHE", value = "true")
+	@DatabaseSetup(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/acceptionTest/testCache.xml")
+	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/acceptionTest/testCache.result.xml")
+	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/acceptionTest/testCache.result.xml")
+	public void testCache() {
+		Expert e = new Expert();
+		expertService.insert(e);
+
+		Project p = new Project();
+		projectService.insert(p);
+
+		Acception a = new Acception();
+		a.setName("old");
+		a.setExpert(e);
+		a.setProject(p);
+		acceptionService.insert(a);
+
+		Acception acception = acceptionService.select(a.getId());
+		Assert.assertEquals("old", acception.getName());
+		expertService.delete(e);
+		projectService.delete(p);
+		Acception acception2 = acceptionService.select(a.getId());
+		Assert.assertNull(acception2.getExpert());
+		Assert.assertNull(acception2.getProject());
+	}
 }

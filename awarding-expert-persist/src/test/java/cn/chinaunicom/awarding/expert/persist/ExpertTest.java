@@ -13,6 +13,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
+import cn.chinaunicom.awarding.account.persist.Account;
+import cn.chinaunicom.awarding.account.persist.AccountService;
+
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -30,6 +33,9 @@ import com.github.springtestdbunit.dataset.FlatXmlDataSetLoader;
 		DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(dataSetLoader = FlatXmlDataSetLoader.class)
 public class ExpertTest {
+
+	@Autowired
+	private AccountService accountService;
 
 	@Autowired
 	private AcceptionService acceptionService;
@@ -71,5 +77,26 @@ public class ExpertTest {
 		expertService.delete(e);
 		Collection<Expert> experts2 = expertService.selectAll(new Expert());
 		Assert.assertEquals(1, experts2.size());
+	}
+
+	@Test
+	@IfProfileValue(name = "CACHE", value = "true")
+	@DatabaseSetup(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/Expert/testCache.xml")
+	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/Expert/testCache.result.xml")
+	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/Expert/testCache.result.xml")
+	public void testCache() {
+		Account a = new Account();
+		a.setName("old");
+		accountService.insert(a);
+
+		Expert e = new Expert();
+		e.setAccount(a);
+		expertService.insert(e);
+
+		Expert expert = expertService.select(e.getId());
+		Assert.assertNotNull(expert.getAccount());
+		accountService.delete(a);
+		Expert expert2 = expertService.select(e.getId());
+		Assert.assertNull(expert2.getAccount());
 	}
 }
