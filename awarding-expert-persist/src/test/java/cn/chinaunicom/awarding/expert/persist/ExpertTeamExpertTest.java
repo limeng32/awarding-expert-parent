@@ -11,6 +11,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
+import cn.chinaunicom.awarding.expert.enums.ExpertTeamExpertStatus;
+
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -40,14 +42,16 @@ public class ExpertTeamExpertTest {
 
 	@Test
 	@IfProfileValue(name = "VOLATILE", value = "true")
-	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTeamExpert/testSelect.xml")
-	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTeamExpert/testSelect.result.xml")
-	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/ExpertTeamExpert/testSelect.result.xml")
+	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/cn/chinaunicom/awarding/expert/persist/expertTeamExpertTest/testSelect.xml")
+	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/expertTeamExpertTest/testSelect.result.xml")
+	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/expertTeamExpertTest/testSelect.result.xml")
 	public void testSelect() {
 		ExpertTeamExpert expertTeamExpert = expertTeamExpertService.select("e");
 		Expert expert2 = expertService.select("e2");
 		Assert.assertEquals("e", expertTeamExpert.getExpert().getId());
 		Assert.assertEquals("name", expertTeamExpert.getExpertTeam().getName());
+		Assert.assertEquals(ExpertTeamExpertStatus.leader,
+				expertTeamExpert.getStatus());
 
 		ExpertTeam expertTeam = expertTeamService.select("et");
 		expertTeamExpertService.loadExpertTeam(expertTeam,
@@ -55,6 +59,7 @@ public class ExpertTeamExpertTest {
 		Assert.assertEquals(1, expertTeam.getExpertTeamExpert().size());
 
 		expertTeamExpert.setExpert(expert2);
+		expertTeamExpert.setStatus(ExpertTeamExpertStatus.member);
 		expertTeamExpertService.update(expertTeamExpert);
 	}
 

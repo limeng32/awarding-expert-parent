@@ -8,6 +8,8 @@ import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotat
 
 import org.apache.ibatis.type.JdbcType;
 
+import cn.chinaunicom.awarding.expert.enums.ExpertTeamExpertStatus;
+
 @TableMapperAnnotation(tableName = "expertTeamExpert")
 public class ExpertTeamExpert extends PojoSupport<ExpertTeamExpert> implements
 		Serializable, cn.chinaunicom.awarding.expert.face.ExpertTeamExpertFace {
@@ -20,12 +22,13 @@ public class ExpertTeamExpert extends PojoSupport<ExpertTeamExpert> implements
 	 */
 	@FieldMapperAnnotation(dbFieldName = "expertTeamExpert_id", jdbcType = JdbcType.VARCHAR, isUniqueKey = true)
 	private java.lang.String id;
+
 	/**
 	 * 状态值，对应枚举类变量，包括“组长，副组长，组员”等状态
 	 * 
 	 */
 	@FieldMapperAnnotation(dbFieldName = "status", jdbcType = JdbcType.CHAR)
-	public java.lang.String status;
+	public ExpertTeamExpertStatus status;
 
 	@FieldMapperAnnotation(dbFieldName = "expert_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "expert_id")
 	private Expert expert;
@@ -33,11 +36,17 @@ public class ExpertTeamExpert extends PojoSupport<ExpertTeamExpert> implements
 	@FieldMapperAnnotation(dbFieldName = "expertTeam_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "expertTeam_id")
 	private ExpertTeam expertTeam;
 
-	public java.lang.String getStatus() {
+	public static final String STATUS_LEADER = "组长";
+
+	public static final String STATUS_DEPUTY = "副组长";
+
+	public static final String STATUS_MEMBER = "组员";
+
+	public ExpertTeamExpertStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(java.lang.String status) {
+	public void setStatus(ExpertTeamExpertStatus status) {
 		this.status = status;
 	}
 
