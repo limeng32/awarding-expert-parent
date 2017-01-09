@@ -56,4 +56,28 @@ public class AcceptionBucketTest {
 		AcceptionBucket acceptionBucket2 = acceptionBucketService.select("ab2");
 		acceptionBucketService.delete(acceptionBucket2);
 	}
+
+	@Test
+	@IfProfileValue(name = "CACHE", value = "true")
+	@DatabaseSetup(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/acceptionBucketTest/testCache.xml")
+	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/acceptionBucketTest/testCache.result.xml")
+	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/acceptionBucketTest/testCache.result.xml")
+	public void testCache() {
+		Acception a = new Acception();
+		a.setName("old");
+		accpetionService.insert(a);
+
+		AcceptionBucket ab = new AcceptionBucket();
+		ab.setReview("old");
+		ab.setAcception(a);
+		acceptionBucketService.insert(ab);
+
+		AcceptionBucket acceptionBucket = acceptionBucketService.select(ab
+				.getId());
+		Assert.assertNotNull(acceptionBucket.getAcception());
+		accpetionService.delete(a);
+		AcceptionBucket acceptionBucket2 = acceptionBucketService.select(ab
+				.getId());
+		Assert.assertNull(acceptionBucket2.getAcception());
+	}
 }
