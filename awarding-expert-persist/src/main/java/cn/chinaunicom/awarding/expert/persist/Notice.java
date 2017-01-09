@@ -8,6 +8,7 @@ import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotat
 
 import org.apache.ibatis.type.JdbcType;
 
+import cn.chinaunicom.awarding.expert.enums.NoticeStatus;
 import cn.chinaunicom.awarding.expert.face.NoticeBucketFace;
 import cn.chinaunicom.awarding.project.persist.Task;
 
@@ -32,12 +33,16 @@ public class Notice extends PojoSupport<Notice> implements Serializable,
 	 * 
 	 */
 	@FieldMapperAnnotation(dbFieldName = "status", jdbcType = JdbcType.VARCHAR)
-	private java.lang.String status;
+	private NoticeStatus status;
 
 	@FieldMapperAnnotation(dbFieldName = "task_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "task_id")
 	private Task task;
 
 	private java.util.Collection<NoticeBucketFace> noticeBucket;
+
+	public static final String STATUS_CONFERENCE = "评审会会议须知";
+
+	public static final String STATUS_DECLARATION = "项目申报须知";
 
 	@Override
 	public String getId() {
@@ -48,11 +53,11 @@ public class Notice extends PojoSupport<Notice> implements Serializable,
 		this.id = id;
 	}
 
-	public java.lang.String getStatus() {
+	public NoticeStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(java.lang.String status) {
+	public void setStatus(NoticeStatus status) {
 		this.status = status;
 	}
 

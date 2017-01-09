@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
+import cn.chinaunicom.awarding.expert.enums.ReportStatus;
 import cn.chinaunicom.awarding.project.persist.Task;
 import cn.chinaunicom.awarding.project.persist.TaskService;
 
@@ -50,8 +51,10 @@ public class ReportTest {
 		Assert.assertEquals(1, task.getReport().size());
 
 		Report report = reportService.select("r");
+		Assert.assertEquals(ReportStatus.avoids, report.getStatus());
 		Task task2 = taskService.select("t2");
 		report.setTask(task2);
+		report.setStatus(ReportStatus.declaration);
 		reportService.update(report);
 
 		Report report2 = reportService.select("r2");

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-	<REPORT REPORT_ID="r" TASK_ID="t" />
+	<REPORT REPORT_ID="r" STATUS="a" TASK_ID="t" />
 	<REPORT REPORT_ID="r2" />
 
 	<TASK TASK_ID="t" />

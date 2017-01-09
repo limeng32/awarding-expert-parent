@@ -8,6 +8,8 @@ import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotat
 
 import org.apache.ibatis.type.JdbcType;
 
+import cn.chinaunicom.awarding.expert.enums.AwardLevel;
+import cn.chinaunicom.awarding.expert.enums.VoteStatus;
 import cn.chinaunicom.awarding.project.persist.Task;
 
 @TableMapperAnnotation(tableName = "vote")
@@ -29,14 +31,14 @@ public class Vote extends PojoSupport<Vote> implements Serializable,
 	 * 
 	 */
 	@FieldMapperAnnotation(dbFieldName = "status", jdbcType = JdbcType.CHAR)
-	private java.lang.String status;
+	private VoteStatus status;
 
 	/**
-	 * 级别值，对应枚举类变量，包括“一等奖、二等奖、三等奖、优秀奖”等级别
+	 * 级别值，对应枚举类变量，包括“特等奖、一等奖、二等奖、三等奖、优秀奖”等级别
 	 * 
 	 */
 	@FieldMapperAnnotation(dbFieldName = "level", jdbcType = JdbcType.CHAR)
-	private java.lang.String level;
+	private AwardLevel level;
 
 	@FieldMapperAnnotation(dbFieldName = "task_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "task_id")
 	private Task task;
@@ -50,6 +52,12 @@ public class Vote extends PojoSupport<Vote> implements Serializable,
 	@FieldMapperAnnotation(dbFieldName = "award_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "award_id")
 	private Award award;
 
+	public static final String STATUS_GROUP = "分组投票";
+
+	public static final String STATUS_CENTRAL = "集中投票";
+
+	public static final String STATUS_DEFENSE = "答辩投票";
+
 	@Override
 	public String getId() {
 		return id;
@@ -59,19 +67,19 @@ public class Vote extends PojoSupport<Vote> implements Serializable,
 		this.id = id;
 	}
 
-	public java.lang.String getStatus() {
+	public VoteStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(java.lang.String status) {
+	public void setStatus(VoteStatus status) {
 		this.status = status;
 	}
 
-	public java.lang.String getLevel() {
+	public AwardLevel getLevel() {
 		return level;
 	}
 
-	public void setLevel(java.lang.String level) {
+	public void setLevel(AwardLevel level) {
 		this.level = level;
 	}
 

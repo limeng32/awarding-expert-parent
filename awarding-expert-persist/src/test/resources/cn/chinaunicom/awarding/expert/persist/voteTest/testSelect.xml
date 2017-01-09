@@ -9,6 +9,6 @@
 	<TASK TASK_ID="t" />
 	<TASK TASK_ID="t2" />
 	<VOTE VOTE_ID="v" ACCEPTION_ID="a" AWARD_ID="a" EXPERT_ID="e"
-		TASK_ID="t" />
+		LEVEL="f" STATUS="g" TASK_ID="t" />
 	<VOTE VOTE_ID="v2" />
 </dataset>

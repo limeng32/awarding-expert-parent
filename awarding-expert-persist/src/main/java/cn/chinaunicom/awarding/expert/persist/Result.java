@@ -8,6 +8,7 @@ import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotat
 
 import org.apache.ibatis.type.JdbcType;
 
+import cn.chinaunicom.awarding.expert.enums.AwardLevel;
 import cn.chinaunicom.awarding.expert.face.GalleryFace;
 import cn.chinaunicom.awarding.project.persist.Task;
 
@@ -28,11 +29,11 @@ public class Result extends PojoSupport<Result> implements Serializable,
 	private java.lang.String id;
 
 	/**
-	 * 级别值，对应枚举类变量，包括“一等奖、二等奖、三等奖、优秀奖”等级别
+	 * 级别值，对应枚举类变量，包括“特等奖、一等奖、二等奖、三等奖、优秀奖”等级别
 	 * 
 	 */
 	@FieldMapperAnnotation(dbFieldName = "level", jdbcType = JdbcType.CHAR)
-	private java.lang.String level;
+	private AwardLevel level;
 
 	@FieldMapperAnnotation(dbFieldName = "award_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "award_id")
 	private Award award;
@@ -45,6 +46,16 @@ public class Result extends PojoSupport<Result> implements Serializable,
 
 	private java.util.Collection<GalleryFace> gallery;
 
+	public static final String LEVEL_OUTSTANDING = "特等奖";
+
+	public static final String LEVEL_FIRST = "一等奖";
+
+	public static final String LEVEL_SECOND = "二等奖";
+
+	public static final String LEVEL_THIRD = "三等奖";
+
+	public static final String LEVEL_HONORABLE = "优秀奖";
+
 	@Override
 	public String getId() {
 		return id;
@@ -54,11 +65,11 @@ public class Result extends PojoSupport<Result> implements Serializable,
 		this.id = id;
 	}
 
-	public java.lang.String getLevel() {
+	public AwardLevel getLevel() {
 		return level;
 	}
 
-	public void setLevel(java.lang.String level) {
+	public void setLevel(AwardLevel level) {
 		this.level = level;
 	}
 

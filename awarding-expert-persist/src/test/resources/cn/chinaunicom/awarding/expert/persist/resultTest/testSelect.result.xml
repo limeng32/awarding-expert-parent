@@ -6,7 +6,8 @@
 	<AWARD AWARD_ID="aw" />
 	<AWARD AWARD_ID="aw2" />
 
-	<RESULT RESULT_id="r" ACCEPTION_ID="a2" AWARD_ID="aw2" TASK_ID="t2" />
+	<RESULT RESULT_id="r" ACCEPTION_ID="a2" AWARD_ID="aw2" LEVEL="s"
+		TASK_ID="t2" />
 
 	<TASK TASK_ID="t" />
 	<TASK TASK_ID="t2" />

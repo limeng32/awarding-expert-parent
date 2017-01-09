@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-	<NOTICE NOTICE_ID="n" TASK_ID="t2" />
+	<NOTICE NOTICE_ID="n" STATUS="d" TASK_ID="t2" />
 
 	<TASK TASK_ID="t" />
 	<TASK TASK_ID="t2" />

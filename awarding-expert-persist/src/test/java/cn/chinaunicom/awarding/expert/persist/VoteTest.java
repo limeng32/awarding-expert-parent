@@ -12,6 +12,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
+import cn.chinaunicom.awarding.expert.enums.AwardLevel;
+import cn.chinaunicom.awarding.expert.enums.VoteStatus;
 import cn.chinaunicom.awarding.project.persist.Task;
 import cn.chinaunicom.awarding.project.persist.TaskService;
 
@@ -56,6 +58,8 @@ public class VoteTest {
 	public void testSelect() {
 		Vote vote = voteService.select("v");
 		Assert.assertEquals("v", vote.getId());
+		Assert.assertEquals(AwardLevel.first, vote.getLevel());
+		Assert.assertEquals(VoteStatus.group, vote.getStatus());
 
 		Task task = taskService.select("t");
 		voteService.loadTask(task, new Vote());
@@ -90,6 +94,8 @@ public class VoteTest {
 
 		Award award2 = awardService.select("a2");
 		vote.setAward(award2);
+		vote.setLevel(AwardLevel.second);
+		vote.setStatus(VoteStatus.central);
 		voteService.update(vote);
 	}
 }

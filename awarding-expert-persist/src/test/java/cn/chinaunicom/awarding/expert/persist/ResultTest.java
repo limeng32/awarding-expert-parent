@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
+import cn.chinaunicom.awarding.expert.enums.AwardLevel;
 import cn.chinaunicom.awarding.project.persist.Task;
 import cn.chinaunicom.awarding.project.persist.TaskService;
 
@@ -64,13 +65,14 @@ public class ResultTest {
 		Assert.assertEquals(1, task.getResult().size());
 
 		Result result = resultService.select("r");
-
+		Assert.assertEquals(AwardLevel.first, result.getLevel());
 		Acception acception2 = acceptionService.select("a2");
 		result.setAcception(acception2);
 		Award award2 = awardService.select("aw2");
 		result.setAward(award2);
 		Task task2 = taskService.select("t2");
 		result.setTask(task2);
+		result.setLevel(AwardLevel.second);
 		resultService.update(result);
 
 		Result result2 = resultService.select("r2");

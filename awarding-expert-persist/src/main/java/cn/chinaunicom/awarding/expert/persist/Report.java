@@ -2,11 +2,13 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.io.Serializable;
 
-import org.apache.ibatis.type.JdbcType;
-
 import limeng32.mirage.util.pojo.PojoSupport;
 import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
 import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
+
+import org.apache.ibatis.type.JdbcType;
+
+import cn.chinaunicom.awarding.expert.enums.ReportStatus;
 import cn.chinaunicom.awarding.project.persist.Task;
 
 @TableMapperAnnotation(tableName = "report")
@@ -28,10 +30,14 @@ public class Report extends PojoSupport<Report> implements Serializable,
 	 * 
 	 */
 	@FieldMapperAnnotation(dbFieldName = "status", jdbcType = JdbcType.VARCHAR)
-	private java.lang.String status;
+	private ReportStatus status;
 
 	@FieldMapperAnnotation(dbFieldName = "task_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "task_id")
 	private Task task;
+
+	public static final String STATUS_AVOIDS = "项目回避报表";
+
+	public static final String STATUS_DECLARATION = "项目申报报表";
 
 	@Override
 	public String getId() {
@@ -42,11 +48,11 @@ public class Report extends PojoSupport<Report> implements Serializable,
 		this.id = id;
 	}
 
-	public java.lang.String getStatus() {
+	public ReportStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(java.lang.String status) {
+	public void setStatus(ReportStatus status) {
 		this.status = status;
 	}
 
