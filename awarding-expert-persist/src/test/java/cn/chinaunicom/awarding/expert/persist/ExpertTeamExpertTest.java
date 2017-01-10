@@ -12,6 +12,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
 import cn.chinaunicom.awarding.expert.enums.ExpertTeamExpertStatus;
+import cn.chinaunicom.awarding.project.persist.Task;
+import cn.chinaunicom.awarding.project.persist.TaskService;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
@@ -39,6 +41,9 @@ public class ExpertTeamExpertTest {
 
 	@Autowired
 	private ExpertTeamExpertService expertTeamExpertService;
+
+	@Autowired
+	private TaskService taskService;
 
 	@Test
 	@IfProfileValue(name = "VOLATILE", value = "true")
@@ -91,8 +96,12 @@ public class ExpertTeamExpertTest {
 	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/expertTeamExpertTest/testCache2.result.xml")
 	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/expertTeamExpertTest/testCache2.result.xml")
 	public void testCache2() {
+		Task t = new Task();
+		t.setName("name");
+		taskService.insert(t);
 		ExpertTeam et = new ExpertTeam();
 		et.setName("name");
+		et.setTask(t);
 		expertTeamService.insert(et);
 		ExpertTeamExpert ete = new ExpertTeamExpert();
 		ete.setStatus(ExpertTeamExpertStatus.leader);
@@ -101,10 +110,10 @@ public class ExpertTeamExpertTest {
 
 		ExpertTeamExpert expertTeamExpert = expertTeamExpertService.select(ete
 				.getId());
-		Assert.assertNotNull(expertTeamExpert.getExpertTeam());
-		expertTeamService.delete(et);
+		Assert.assertNotNull(expertTeamExpert.getExpertTeam().getTask());
+		taskService.delete(t);
 		ExpertTeamExpert expertTeamExpert2 = expertTeamExpertService.select(ete
 				.getId());
-		Assert.assertNull(expertTeamExpert2.getExpertTeam());
+		Assert.assertNull(expertTeamExpert2.getExpertTeam().getTask());
 	}
 }

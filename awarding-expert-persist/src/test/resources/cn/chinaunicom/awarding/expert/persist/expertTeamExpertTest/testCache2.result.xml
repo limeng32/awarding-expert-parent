@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-	<EXPERTTEAM />
+	<EXPERTTEAM NAME="name" />
 	<EXPERTTEAMEXPERT STATUS="l" />
+	<TASK />
 </dataset>

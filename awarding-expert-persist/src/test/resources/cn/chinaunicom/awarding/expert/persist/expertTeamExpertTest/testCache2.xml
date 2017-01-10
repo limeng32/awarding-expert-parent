@@ -2,4 +2,5 @@
 <dataset>
 	<EXPERTTEAM NAME="name" />
 	<EXPERTTEAMEXPERT STATUS="l" />
+	<TASK NAME="name" />
 </dataset>
