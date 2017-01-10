@@ -63,4 +63,48 @@ public class ExpertTeamExpertTest {
 		expertTeamExpertService.update(expertTeamExpert);
 	}
 
+	@Test
+	@IfProfileValue(name = "CACHE", value = "true")
+	@DatabaseSetup(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/expertTeamExpertTest/testCache.xml")
+	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/expertTeamExpertTest/testCache.result.xml")
+	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/expertTeamExpertTest/testCache.result.xml")
+	public void testCache() {
+		Expert e = new Expert();
+		expertService.insert(e);
+		ExpertTeamExpert ete = new ExpertTeamExpert();
+		ete.setStatus(ExpertTeamExpertStatus.leader);
+		ete.setExpert(e);
+		expertTeamExpertService.insert(ete);
+
+		ExpertTeamExpert expertTeamExpert = expertTeamExpertService.select(ete
+				.getId());
+		Assert.assertNotNull(expertTeamExpert.getExpert());
+		expertService.delete(e);
+		ExpertTeamExpert expertTeamExpert2 = expertTeamExpertService.select(ete
+				.getId());
+		Assert.assertNull(expertTeamExpert2.getExpert());
+	}
+
+	@Test
+	@IfProfileValue(name = "CACHE", value = "true")
+	@DatabaseSetup(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/expertTeamExpertTest/testCache2.xml")
+	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/expertTeamExpertTest/testCache2.result.xml")
+	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/expertTeamExpertTest/testCache2.result.xml")
+	public void testCache2() {
+		ExpertTeam et = new ExpertTeam();
+		et.setName("name");
+		expertTeamService.insert(et);
+		ExpertTeamExpert ete = new ExpertTeamExpert();
+		ete.setStatus(ExpertTeamExpertStatus.leader);
+		ete.setExpertTeam(et);
+		expertTeamExpertService.insert(ete);
+
+		ExpertTeamExpert expertTeamExpert = expertTeamExpertService.select(ete
+				.getId());
+		Assert.assertNotNull(expertTeamExpert.getExpertTeam());
+		expertTeamService.delete(et);
+		ExpertTeamExpert expertTeamExpert2 = expertTeamExpertService.select(ete
+				.getId());
+		Assert.assertNull(expertTeamExpert2.getExpertTeam());
+	}
 }
