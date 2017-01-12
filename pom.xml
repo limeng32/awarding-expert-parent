@@ -279,6 +279,11 @@
 				<artifactId>awarding-account-service</artifactId>
 				<version>${awarding-account-parent.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>awarding-project-service</artifactId>
+				<version>${awarding-project-parent.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<build>

@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<ACCEPTION ACCEPTION_ID="a" PROJECT_ID="p" />
+	<EXPERT EXPERT_ID="e" OPLOCK="0" />
+	<PROJECT PROJECT_ID="p" NAME="old" OPLOCK="0" />
+</dataset>
