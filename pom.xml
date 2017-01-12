@@ -9,6 +9,7 @@
 	<name>Awarding expert parent</name>
 	<modules>
 		<module>awarding-expert-persist</module>
+		<module>awarding-expert-service</module>
 	</modules>
 	<properties>
 		<springframework.version>3.2.4.RELEASE</springframework.version>
