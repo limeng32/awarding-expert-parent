@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.chinaunicom.awarding.account.enums.Company;
+import cn.chinaunicom.awarding.account.enums.CompanyBean;
+import cn.chinaunicom.awarding.account.enums.CompanyType;
 import cn.chinaunicom.awarding.project.condition.ProjectCondition;
 import cn.chinaunicom.awarding.project.enums.ProjectPhase;
 import cn.chinaunicom.awarding.project.persist.Project;
@@ -54,8 +56,25 @@ public class GroupCommonController {
 		condition.setPhase(phase);
 		Collection<Project> projectC = projectService.selectAll(condition);
 		Page<Project> page = new Page<>(projectC, condition.getLimiter());
-
 		callback.setData(page);
+		return UNIQUE_VIEW_NAME;
+	}
+
+	@RequestMapping(method = { RequestMethod.POST }, value = "/group/listCompanyType")
+	public String listCompanyType(HttpServletRequest request,
+			HttpServletResponse response, ModelMap mm) {
+		Callback callback = new Callback();
+		mm.addAttribute("_content", callback);
+		CompanyType[] companyTypes = CompanyType.values();
+		Collection<?>[] ret = new Collection<?>[companyTypes.length];
+		int i = 0;
+		for (CompanyType companyType : companyTypes) {
+			Collection<CompanyBean> companyC = Company
+					.sortByCompanyType(companyType);
+			ret[i] = companyC;
+			i++;
+		}
+		callback.setData(ret);
 		return UNIQUE_VIEW_NAME;
 	}
 }
