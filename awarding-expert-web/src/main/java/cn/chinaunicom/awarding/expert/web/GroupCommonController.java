@@ -1,6 +1,8 @@
 package cn.chinaunicom.awarding.expert.web;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cn.chinaunicom.awarding.account.condition.AccountCondition;
 import cn.chinaunicom.awarding.account.enums.Company;
 import cn.chinaunicom.awarding.account.enums.CompanyBean;
 import cn.chinaunicom.awarding.account.enums.CompanyType;
@@ -42,7 +45,8 @@ public class GroupCommonController {
 			ModelMap mm,
 			@RequestParam(value = "pageNo", required = false) Integer pageNo,
 			@RequestParam(value = "phase", required = false) ProjectPhase phase,
-			@RequestParam(value = "company", required = false) Company company) {
+			@RequestParam(value = "company", required = false) Company company,
+			@RequestParam(value = "companyType", required = false) CompanyType companyType) {
 		Callback callback = new Callback();
 		mm.addAttribute("_content", callback);
 
@@ -54,6 +58,15 @@ public class GroupCommonController {
 		condition.setSorter(new SortParam(new Order("editTime",
 				Conditionable.Sequence.desc)));
 		condition.setPhase(phase);
+		AccountCondition ac = new AccountCondition();
+
+		if (companyType != null) {
+			Collection<Company> tempC = Company.sortByCompanyType(companyType);
+			ac.setCompanyIn((ArrayList<Company>) tempC);
+		}
+
+		ac.setCompany(company);
+		condition.setAccount(ac);
 		Collection<Project> projectC = projectService.selectAll(condition);
 		Page<Project> page = new Page<>(projectC, condition.getLimiter());
 		callback.setData(page);
@@ -69,8 +82,11 @@ public class GroupCommonController {
 		Collection<?>[] ret = new Collection<?>[companyTypes.length];
 		int i = 0;
 		for (CompanyType companyType : companyTypes) {
-			Collection<CompanyBean> companyC = Company
-					.sortByCompanyType(companyType);
+			Collection<Company> tempC = Company.sortByCompanyType(companyType);
+			Collection<CompanyBean> companyC = new LinkedHashSet<>();
+			for (Company temp : tempC) {
+				companyC.add(temp.toBean());
+			}
 			ret[i] = companyC;
 			i++;
 		}

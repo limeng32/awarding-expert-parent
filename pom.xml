@@ -16,7 +16,7 @@
 		<springframework.version>3.2.4.RELEASE</springframework.version>
 		<junit.version>4.7</junit.version>
 		<mirage-util.version>1.4.2</mirage-util.version>
-		<mybatisPlugin.version>1.2.2</mybatisPlugin.version>
+		<mybatisPlugin.version>1.2.3</mybatisPlugin.version>
 		<dbcp.version>1.4</dbcp.version>
 		<mybatis-spring.version>1.2.2</mybatis-spring.version>
 		<cglib.version>2.2.2</cglib.version>
