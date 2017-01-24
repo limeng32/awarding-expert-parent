@@ -16,4 +16,8 @@ public class ExpertCommonController {
 		return "account/group";
 	}
 
+	@RequestMapping(method = { RequestMethod.GET }, value = "/expert")
+	public String expert(HttpServletRequest request) {
+		return "account/expert";
+	}
 }

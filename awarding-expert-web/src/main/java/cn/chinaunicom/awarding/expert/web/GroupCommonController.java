@@ -39,7 +39,7 @@ public class GroupCommonController {
 	private static final String UNIQUE_VIEW_NAME = "__unique_view_name";
 
 	@RequestMapping(method = { RequestMethod.POST }, value = "/group/listProject")
-	public String listProject(
+	public String groupListProject(
 			HttpServletRequest request,
 			HttpServletResponse response,
 			ModelMap mm,
@@ -58,6 +58,7 @@ public class GroupCommonController {
 		condition.setSorter(new SortParam(new Order("editTime",
 				Conditionable.Sequence.desc)));
 		condition.setPhase(phase);
+		condition.setDetectorIsNull(true);
 		AccountCondition ac = new AccountCondition();
 
 		if (companyType != null) {
