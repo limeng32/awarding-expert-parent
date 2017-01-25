@@ -1,6 +1,7 @@
 package cn.chinaunicom.awarding.expert.web;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
@@ -25,6 +26,8 @@ import cn.chinaunicom.awarding.account.condition.AccountCondition;
 import cn.chinaunicom.awarding.account.enums.Company;
 import cn.chinaunicom.awarding.account.enums.CompanyBean;
 import cn.chinaunicom.awarding.account.enums.CompanyType;
+import cn.chinaunicom.awarding.account.persist.Account;
+import cn.chinaunicom.awarding.account.persist.AccountService;
 import cn.chinaunicom.awarding.project.condition.ProjectCondition;
 import cn.chinaunicom.awarding.project.enums.ProjectPhase;
 import cn.chinaunicom.awarding.project.persist.Project;
@@ -32,6 +35,9 @@ import cn.chinaunicom.awarding.project.persist.ProjectService;
 
 @Controller
 public class GroupCommonController {
+
+	@Autowired
+	private AccountService accountService;
 
 	@Autowired
 	private ProjectService projectService;
@@ -74,6 +80,32 @@ public class GroupCommonController {
 		return UNIQUE_VIEW_NAME;
 	}
 
+	@RequestMapping(method = { RequestMethod.POST }, value = "/group/listProjectDetected")
+	public String groupListProjectDetected(HttpServletRequest request,
+			HttpServletResponse response, ModelMap mm,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo,
+			@RequestParam(value = "phase", required = false) ProjectPhase phase) {
+		Callback callback = new Callback();
+		mm.addAttribute("_content", callback);
+
+		if (pageNo == null) {
+			pageNo = 1;
+		}
+		ProjectCondition condition = new ProjectCondition();
+		condition.setLimiter(new PageParam(pageNo, 5));
+		condition.setSorter(new SortParam(new Order("editTime",
+				Conditionable.Sequence.desc)));
+		condition.setPhase(phase);
+		condition.setDetectorIsNull(false);
+		AccountCondition ac = new AccountCondition();
+
+		condition.setAccount(ac);
+		Collection<Project> projectC = projectService.selectAll(condition);
+		Page<Project> page = new Page<>(projectC, condition.getLimiter());
+		callback.setData(page);
+		return UNIQUE_VIEW_NAME;
+	}
+
 	@RequestMapping(method = { RequestMethod.POST }, value = "/group/listCompanyType")
 	public String listCompanyType(HttpServletRequest request,
 			HttpServletResponse response, ModelMap mm) {
@@ -92,6 +124,25 @@ public class GroupCommonController {
 			i++;
 		}
 		callback.setData(ret);
+		return UNIQUE_VIEW_NAME;
+	}
+
+	@RequestMapping(method = { RequestMethod.POST }, value = "/group/assignDetector")
+	public String assignDetector(HttpServletRequest request,
+			HttpServletResponse response, ModelMap mm,
+			@RequestParam(value = "projectId") String projectId,
+			@RequestParam(value = "detectorId") String detectorId) {
+		Callback callback = new Callback();
+		mm.addAttribute("_content", callback);
+		boolean ret = false;
+		Project project = projectService.select(projectId);
+		Account detector = accountService.select(detectorId);
+		project.setDetector(detector);
+		project.setEditTime(Calendar.getInstance().getTime());
+		if (projectService.update(project) > 0) {
+			ret = true;
+		}
+		callback.setFlag(ret);
 		return UNIQUE_VIEW_NAME;
 	}
 }
