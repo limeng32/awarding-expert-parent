@@ -6,5 +6,6 @@
 	<TASK TASK_ID="t" />
 	<TASK TASK_ID="t2" />
 
-	<TASKEXPERT TASKEXPERT_ID="te" EXPERT_ID="e2" TASK_ID="t2" />
+	<TASKEXPERT TASKEXPERT_ID="te" EXPERT_ID="e2" STATUS="e"
+		TASK_ID="t2" />
 </dataset>

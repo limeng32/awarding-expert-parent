@@ -22,8 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import cn.chinaunicom.awarding.expert.condition.ExpertCondition;
 import cn.chinaunicom.awarding.expert.persist.Expert;
 import cn.chinaunicom.awarding.expert.persist.ExpertService;
+import cn.chinaunicom.awarding.expert.persist.TaskExpert;
+import cn.chinaunicom.awarding.expert.persist.TaskExpertService;
 import cn.chinaunicom.awarding.project.condition.TaskCondition;
-import cn.chinaunicom.awarding.project.enums.ProjectPhase;
 import cn.chinaunicom.awarding.project.enums.TaskStatus;
 import cn.chinaunicom.awarding.project.persist.Task;
 import cn.chinaunicom.awarding.project.persist.TaskService;
@@ -33,6 +34,9 @@ public class ExpertCommonController {
 
 	@Autowired
 	private ExpertService expertService;
+
+	@Autowired
+	private TaskExpertService taskExpertService;
 
 	@Autowired
 	private TaskService taskService;
@@ -68,6 +72,11 @@ public class ExpertCommonController {
 		ExpertCondition ec = new ExpertCondition();
 		ec.setLimiter(new PageParam(1, 10));
 		Collection<Expert> expertC = expertService.selectAll(ec);
+		TaskExpert tec = new TaskExpert();
+		tec.setTask(tc);
+		for (Expert e : expertC) {
+			taskExpertService.loadExpert(e, tec);
+		}
 		Page<Expert> page = new Page<>(expertC, ec.getLimiter());
 		Object[] ret = new Object[2];
 		ret[0] = tasks[0];
@@ -82,12 +91,23 @@ public class ExpertCommonController {
 			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
 		Callback callback = new Callback();
 		mm.addAttribute("_content", callback);
+
+		TaskCondition tc = new TaskCondition();
+		tc.setLimiter((new PageParam(1, 1)));
+		tc.setSorter(new SortParam(new Order("begin",
+				Conditionable.Sequence.desc)));
+		tc.setStatus(TaskStatus.ongoing);
 		if (pageNo == null) {
 			pageNo = 1;
 		}
 		ExpertCondition ec = new ExpertCondition();
 		ec.setLimiter(new PageParam(pageNo, 10));
 		Collection<Expert> expertC = expertService.selectAll(ec);
+		TaskExpert tec = new TaskExpert();
+		tec.setTask(tc);
+		for (Expert e : expertC) {
+			taskExpertService.loadExpert(e, tec);
+		}
 		Page<Expert> page = new Page<>(expertC, ec.getLimiter());
 		callback.setData(page);
 		return UNIQUE_VIEW_NAME;

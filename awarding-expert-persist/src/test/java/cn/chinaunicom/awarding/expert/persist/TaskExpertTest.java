@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
+import cn.chinaunicom.awarding.expert.enums.TaskExpertStatus;
 import cn.chinaunicom.awarding.project.persist.Task;
 import cn.chinaunicom.awarding.project.persist.TaskService;
 
@@ -57,10 +58,12 @@ public class TaskExpertTest {
 		Assert.assertEquals(1, task.getTaskExpert().size());
 
 		TaskExpert taskExpert = taskExpertService.select("te");
+		Assert.assertEquals(TaskExpertStatus.invite, taskExpert.getStatus());
 		Expert expert2 = expertService.select("e2");
 		taskExpert.setExpert(expert2);
 		Task task2 = taskService.select("t2");
 		taskExpert.setTask(task2);
+		taskExpert.setStatus(TaskExpertStatus.email);
 		taskExpertService.update(taskExpert);
 
 		TaskExpert taskExpert2 = taskExpertService.select("te2");

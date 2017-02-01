@@ -8,6 +8,7 @@ import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotat
 
 import org.apache.ibatis.type.JdbcType;
 
+import cn.chinaunicom.awarding.expert.enums.TaskExpertStatus;
 import cn.chinaunicom.awarding.project.persist.Task;
 
 @TableMapperAnnotation(tableName = "taskExpert")
@@ -24,11 +25,24 @@ public class TaskExpert extends PojoSupport<TaskExpert> implements
 	@FieldMapperAnnotation(dbFieldName = "taskExpert_id", jdbcType = JdbcType.VARCHAR, isUniqueKey = true)
 	private java.lang.String id;
 
+	/**
+	 * 状态值，对应枚举类变量，包括“邀请、发送邮件、回复确认”等状态
+	 * 
+	 */
+	@FieldMapperAnnotation(dbFieldName = "status", jdbcType = JdbcType.VARCHAR)
+	private TaskExpertStatus status;
+
 	@FieldMapperAnnotation(dbFieldName = "expert_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "expert_id")
 	private Expert expert;
 
 	@FieldMapperAnnotation(dbFieldName = "task_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "task_id")
 	private Task task;
+
+	public static final String STATUS_INVITE = "邀请";
+
+	public static final String STATUS_EMAIL = "发送邮件";
+
+	public static final String STATUS_CONFIRM = "回复确认";
 
 	public Expert getExpert() {
 		return expert;
@@ -75,6 +89,14 @@ public class TaskExpert extends PojoSupport<TaskExpert> implements
 
 	public void setId(java.lang.String id) {
 		this.id = id;
+	}
+
+	public TaskExpertStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(TaskExpertStatus status) {
+		this.status = status;
 	}
 
 }
