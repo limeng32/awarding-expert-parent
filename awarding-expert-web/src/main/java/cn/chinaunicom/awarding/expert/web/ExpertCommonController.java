@@ -140,4 +140,77 @@ public class ExpertCommonController {
 		callback.setData(page);
 		return UNIQUE_VIEW_NAME;
 	}
+
+	@RequestMapping(method = { RequestMethod.POST }, value = "/expert/listInvitedExpert")
+	public String listInvitedExpert(HttpServletRequest request,
+			HttpServletResponse response, ModelMap mm,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+		Callback callback = new Callback();
+		mm.addAttribute("_content", callback);
+		TaskCondition tc = new TaskCondition();
+		tc.setLimiter((new PageParam(1, 1)));
+		tc.setSorter(new SortParam(new Order("begin",
+				Conditionable.Sequence.desc)));
+		tc.setStatus(TaskStatus.ongoing);
+		TaskExpertCondition tec2 = new TaskExpertCondition();
+		tec2.setTask(tc);
+		if (pageNo == null) {
+			pageNo = 1;
+		}
+		tec2.setLimiter(new PageParam(pageNo, 10));
+		Collection<TaskExpert> taskExpertC = taskExpertService.selectAll(tec2);
+
+		Collection<Expert> expertC = new LinkedHashSet<>();
+		for (TaskExpert taskExpert : taskExpertC) {
+			expertC.add(taskExpert.getExpert());
+		}
+		Page<Expert> page = new Page<>(expertC, tec2.getLimiter());
+		callback.setData(page);
+		return UNIQUE_VIEW_NAME;
+	}
+
+	@RequestMapping(method = { RequestMethod.POST }, value = "/expert/unInviteExpert")
+	public String unInviteExpert(HttpServletRequest request,
+			HttpServletResponse response, ModelMap mm,
+			@RequestParam(value = "expertId") String expertId,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+
+		Callback callback = new Callback();
+		mm.addAttribute("_content", callback);
+		TaskCondition tc = new TaskCondition();
+		tc.setLimiter((new PageParam(1, 1)));
+		tc.setSorter(new SortParam(new Order("begin",
+				Conditionable.Sequence.desc)));
+		tc.setStatus(TaskStatus.ongoing);
+
+		TaskExpert tec = new TaskExpert();
+		Expert ec = new Expert();
+		ec.setId(expertId);
+		tec.setExpert(ec);
+		tec.setTask(tc);
+		Collection<TaskExpert> taskExpertC = taskExpertService.selectAll(tec);
+		if (taskExpertC.size() == 1) {
+			for (TaskExpert taskExpert : taskExpertC) {
+				taskExpertService.delete(taskExpert);
+			}
+		}
+
+		TaskExpertCondition tec2 = new TaskExpertCondition();
+		tec2.setTask(tc);
+		if (pageNo == null) {
+			pageNo = 1;
+		}
+		Collection<TaskExpert> taskExpertC2 = null;
+		do {
+			tec2.setLimiter(new PageParam(pageNo, 10));
+			taskExpertC2 = taskExpertService.selectAll(tec2);
+		} while (pageNo-- > tec2.getLimiter().getMaxPageNum());
+		Collection<Expert> expertC = new LinkedHashSet<>();
+		for (TaskExpert taskExpert : taskExpertC2) {
+			expertC.add(taskExpert.getExpert());
+		}
+		Page<Expert> page = new Page<>(expertC, tec2.getLimiter());
+		callback.setData(page);
+		return UNIQUE_VIEW_NAME;
+	}
 }
