@@ -1,5 +1,6 @@
 package cn.chinaunicom.awarding.expert.web;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.chinaunicom.awarding.expert.condition.ExpertCondition;
 import cn.chinaunicom.awarding.expert.condition.TaskExpertCondition;
+import cn.chinaunicom.awarding.expert.enums.TaskExpertStatus;
 import cn.chinaunicom.awarding.expert.persist.Expert;
 import cn.chinaunicom.awarding.expert.persist.ExpertService;
 import cn.chinaunicom.awarding.expert.persist.TaskExpert;
@@ -100,6 +102,8 @@ public class ExpertCommonController {
 		tc.setStatus(TaskStatus.ongoing);
 		TaskExpertCondition tec2 = new TaskExpertCondition();
 		tec2.setTask(tc);
+		tec2.setSorter(new SortParam(new Order("timeStamp",
+				Conditionable.Sequence.asc)));
 		tec2.setLimiter(new PageParam(1, 10));
 		Collection<TaskExpert> taskExpertC = taskExpertService.selectAll(tec2);
 
@@ -153,6 +157,8 @@ public class ExpertCommonController {
 				Conditionable.Sequence.desc)));
 		tc.setStatus(TaskStatus.ongoing);
 		TaskExpertCondition tec2 = new TaskExpertCondition();
+		tec2.setSorter(new SortParam(new Order("timeStamp",
+				Conditionable.Sequence.asc)));
 		tec2.setTask(tc);
 		if (pageNo == null) {
 			pageNo = 1;
@@ -174,7 +180,6 @@ public class ExpertCommonController {
 			HttpServletResponse response, ModelMap mm,
 			@RequestParam(value = "expertId") String expertId,
 			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
-
 		Callback callback = new Callback();
 		mm.addAttribute("_content", callback);
 		TaskCondition tc = new TaskCondition();
@@ -196,6 +201,8 @@ public class ExpertCommonController {
 		}
 
 		TaskExpertCondition tec2 = new TaskExpertCondition();
+		tec2.setSorter(new SortParam(new Order("timeStamp",
+				Conditionable.Sequence.asc)));
 		tec2.setTask(tc);
 		if (pageNo == null) {
 			pageNo = 1;
@@ -210,6 +217,44 @@ public class ExpertCommonController {
 			expertC.add(taskExpert.getExpert());
 		}
 		Page<Expert> page = new Page<>(expertC, tec2.getLimiter());
+		callback.setData(page);
+		return UNIQUE_VIEW_NAME;
+	}
+
+	@RequestMapping(method = { RequestMethod.POST }, value = "/expert/inviteExpert")
+	public String inviteExpert(HttpServletRequest request,
+			HttpServletResponse response, ModelMap mm,
+			@RequestParam(value = "expertId") String expertId,
+			@RequestParam(value = "taskId") String taskId,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+		Callback callback = new Callback();
+		mm.addAttribute("_content", callback);
+		Task tc = new Task();
+		tc.setId(taskId);
+		Expert ec = new Expert();
+		ec.setId(expertId);
+		TaskExpert taskExpert = new TaskExpert();
+		taskExpert.setExpert(ec);
+		taskExpert.setTask(tc);
+		taskExpert.setStatus(TaskExpertStatus.invite);
+		taskExpert.setTimeStamp(Calendar.getInstance().getTime());
+		taskExpertService.insert(taskExpert);
+
+		TaskExpertCondition tec = new TaskExpertCondition();
+		tec.setTask(tc);
+		tec.setLimiter(new PageParam(pageNo == null ? 1 : pageNo, 10));
+		tec.setSorter(new SortParam(new Order("timeStamp",
+				Conditionable.Sequence.asc)));
+		Collection<TaskExpert> taskExpertC = taskExpertService.selectAll(tec);
+		if (!pageNo.equals(tec.getLimiter().getMaxPageNum())) {
+			tec.setLimiter(new PageParam(tec.getLimiter().getMaxPageNum(), 10));
+			taskExpertC = taskExpertService.selectAll(tec);
+		}
+		Collection<Expert> expertC = new LinkedHashSet<>();
+		for (TaskExpert temp : taskExpertC) {
+			expertC.add(temp.getExpert());
+		}
+		Page<Expert> page = new Page<>(expertC, tec.getLimiter());
 		callback.setData(page);
 		return UNIQUE_VIEW_NAME;
 	}

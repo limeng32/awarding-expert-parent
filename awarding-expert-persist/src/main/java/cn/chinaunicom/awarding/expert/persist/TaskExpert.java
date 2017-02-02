@@ -32,6 +32,13 @@ public class TaskExpert extends PojoSupport<TaskExpert> implements
 	@FieldMapperAnnotation(dbFieldName = "status", jdbcType = JdbcType.VARCHAR)
 	private TaskExpertStatus status;
 
+	/**
+	 * 本条记录建立时间
+	 * 
+	 */
+	@FieldMapperAnnotation(dbFieldName = "timeStamp", jdbcType = JdbcType.TIMESTAMP)
+	private java.util.Date timeStamp;
+
 	@FieldMapperAnnotation(dbFieldName = "expert_id", jdbcType = JdbcType.VARCHAR, dbAssociationUniqueKey = "expert_id")
 	private Expert expert;
 
@@ -97,6 +104,14 @@ public class TaskExpert extends PojoSupport<TaskExpert> implements
 
 	public void setStatus(TaskExpertStatus status) {
 		this.status = status;
+	}
+
+	public java.util.Date getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(java.util.Date timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 
 }
