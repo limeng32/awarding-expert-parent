@@ -236,26 +236,84 @@ public class ExpertCommonController {
 		TaskExpert taskExpert = new TaskExpert();
 		taskExpert.setExpert(ec);
 		taskExpert.setTask(tc);
-		taskExpert.setStatus(TaskExpertStatus.invite);
-		taskExpert.setTimeStamp(Calendar.getInstance().getTime());
-		taskExpertService.insert(taskExpert);
+		if (taskExpertService.count(taskExpert) == 0) {
+			taskExpert.setStatus(TaskExpertStatus.invite);
+			taskExpert.setTimeStamp(Calendar.getInstance().getTime());
+			taskExpertService.insert(taskExpert);
+			TaskExpertCondition tec = new TaskExpertCondition();
+			tec.setTask(tc);
+			tec.setLimiter(new PageParam(pageNo == null ? 1 : pageNo, 10));
+			tec.setSorter(new SortParam(new Order("timeStamp",
+					Conditionable.Sequence.asc)));
+			Collection<TaskExpert> taskExpertC = taskExpertService
+					.selectAll(tec);
+			if (!pageNo.equals(tec.getLimiter().getMaxPageNum())) {
+				tec.setLimiter(new PageParam(tec.getLimiter().getMaxPageNum(),
+						10));
+				taskExpertC = taskExpertService.selectAll(tec);
+			}
+			Collection<Expert> expertC = new LinkedHashSet<>();
+			for (TaskExpert temp : taskExpertC) {
+				expertC.add(temp.getExpert());
+			}
+			Page<Expert> page = new Page<>(expertC, tec.getLimiter());
+			callback.setData(page);
+			callback.setFlag(true);
+		} else {
+			callback.setFlag(false);
+		}
+		return UNIQUE_VIEW_NAME;
+	}
 
-		TaskExpertCondition tec = new TaskExpertCondition();
+	@RequestMapping(method = { RequestMethod.POST }, value = "/expert/emailExpert")
+	public String emailExpert(HttpServletRequest request,
+			HttpServletResponse response, ModelMap mm,
+			@RequestParam(value = "expertId") String expertId,
+			@RequestParam(value = "taskId") String taskId) {
+		Callback callback = new Callback();
+		mm.addAttribute("_content", callback);
+		Expert ec = new Expert();
+		ec.setId(expertId);
+		Task tc = new Task();
+		tc.setId(taskId);
+		TaskExpert tec = new TaskExpert();
+		tec.setExpert(ec);
 		tec.setTask(tc);
-		tec.setLimiter(new PageParam(pageNo == null ? 1 : pageNo, 10));
-		tec.setSorter(new SortParam(new Order("timeStamp",
-				Conditionable.Sequence.asc)));
 		Collection<TaskExpert> taskExpertC = taskExpertService.selectAll(tec);
-		if (!pageNo.equals(tec.getLimiter().getMaxPageNum())) {
-			tec.setLimiter(new PageParam(tec.getLimiter().getMaxPageNum(), 10));
-			taskExpertC = taskExpertService.selectAll(tec);
+		if (taskExpertC.size() == 1) {
+			for (TaskExpert taskExpert : taskExpertC) {
+				taskExpert.setStatus(TaskExpertStatus.email);
+				if (taskExpertService.update(taskExpert) == 1) {
+					callback.setFlag(true);
+				}
+			}
 		}
-		Collection<Expert> expertC = new LinkedHashSet<>();
-		for (TaskExpert temp : taskExpertC) {
-			expertC.add(temp.getExpert());
+		return UNIQUE_VIEW_NAME;
+	}
+
+	@RequestMapping(method = { RequestMethod.POST }, value = "/expert/confirmExpert")
+	public String confirmExpert(HttpServletRequest request,
+			HttpServletResponse response, ModelMap mm,
+			@RequestParam(value = "expertId") String expertId,
+			@RequestParam(value = "taskId") String taskId) {
+		Callback callback = new Callback();
+		mm.addAttribute("_content", callback);
+		Expert ec = new Expert();
+		ec.setId(expertId);
+		Task tc = new Task();
+		tc.setId(taskId);
+		TaskExpert tec = new TaskExpert();
+		tec.setExpert(ec);
+		tec.setTask(tc);
+		Collection<TaskExpert> taskExpertC = taskExpertService.selectAll(tec);
+		if (taskExpertC.size() == 1) {
+			for (TaskExpert taskExpert : taskExpertC) {
+				taskExpert.setStatus(TaskExpertStatus.confirm);
+				if (taskExpertService.update(taskExpert) == 1) {
+					callback.setFlag(true);
+				}
+			}
 		}
-		Page<Expert> page = new Page<>(expertC, tec.getLimiter());
-		callback.setData(page);
 		return UNIQUE_VIEW_NAME;
 	}
 }
