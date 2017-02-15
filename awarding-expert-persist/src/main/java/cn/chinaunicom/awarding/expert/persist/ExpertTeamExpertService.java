@@ -2,16 +2,14 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.util.Collection;
 
-import limeng32.mirage.util.service.ServiceSupport;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.chinaunicom.awarding.mapper.ExpertTeamExpertMapper;
+import limeng32.mirage.util.service.ServiceSupport;
 
 @Service
-public class ExpertTeamExpertService extends ServiceSupport<ExpertTeamExpert>
-		implements ExpertTeamExpertMapper {
+public class ExpertTeamExpertService extends ServiceSupport<ExpertTeamExpert> implements ExpertTeamExpertMapper {
 	@Autowired
 	private ExpertTeamExpertMapper mapper;
 
@@ -41,16 +39,6 @@ public class ExpertTeamExpertService extends ServiceSupport<ExpertTeamExpert>
 	}
 
 	@Override
-	public void retrieve(ExpertTeamExpert t) {
-		supportRetrieve(mapper, t);
-	}
-
-	@Override
-	public void retrieveOnlyNull(ExpertTeamExpert t) {
-		supportRetrieveOnlyNull(mapper, t);
-	}
-
-	@Override
 	public int delete(ExpertTeamExpert t) {
 		return supportDelete(mapper, t);
 	}
@@ -68,10 +56,14 @@ public class ExpertTeamExpertService extends ServiceSupport<ExpertTeamExpert>
 	}
 
 	@Override
-	public void loadExpertTeam(ExpertTeam expertTeam,
-			ExpertTeamExpert expertTeamExpert) {
+	public void loadExpertTeam(ExpertTeam expertTeam, ExpertTeamExpert expertTeamExpert) {
 		expertTeam.removeAllExpertTeamExpert();
 		expertTeamExpert.setExpertTeam(expertTeam);
 		expertTeam.setExpertTeamExpert(mapper.selectAll(expertTeamExpert));
+	}
+
+	@Override
+	public ExpertTeamExpert selectOne(ExpertTeamExpert t) {
+		return supportSelectOne(mapper, t);
 	}
 }

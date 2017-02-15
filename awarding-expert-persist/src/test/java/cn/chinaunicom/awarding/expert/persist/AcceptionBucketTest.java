@@ -22,10 +22,9 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import com.github.springtestdbunit.dataset.FlatXmlDataSetLoader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "classpath:expert-persist-test.xml",
-		"classpath:project-service.xml", "classpath:account-service.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-		DirtiesContextTestExecutionListener.class,
+@ContextConfiguration({ "classpath:expert-persist-test.xml", "classpath:project-service.xml",
+		"classpath:account-service.xml" })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
 		DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(dataSetLoader = FlatXmlDataSetLoader.class)
 public class AcceptionBucketTest {
@@ -72,12 +71,10 @@ public class AcceptionBucketTest {
 		ab.setAcception(a);
 		acceptionBucketService.insert(ab);
 
-		AcceptionBucket acceptionBucket = acceptionBucketService.select(ab
-				.getId());
+		AcceptionBucket acceptionBucket = acceptionBucketService.select(ab.getId());
 		Assert.assertNotNull(acceptionBucket.getAcception());
 		accpetionService.delete(a);
-		AcceptionBucket acceptionBucket2 = acceptionBucketService.select(ab
-				.getId());
+		AcceptionBucket acceptionBucket2 = acceptionBucketService.select(ab.getId());
 		Assert.assertNull(acceptionBucket2.getAcception());
 	}
 }

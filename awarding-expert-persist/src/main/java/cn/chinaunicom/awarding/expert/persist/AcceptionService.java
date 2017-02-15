@@ -11,8 +11,7 @@ import cn.chinaunicom.awarding.mapper.AcceptionMapper;
 import cn.chinaunicom.awarding.project.persist.Project;
 
 @Service
-public class AcceptionService extends ServiceSupport<Acception> implements
-		AcceptionMapper {
+public class AcceptionService extends ServiceSupport<Acception> implements AcceptionMapper {
 	@Autowired
 	private AcceptionMapper mapper;
 
@@ -42,16 +41,6 @@ public class AcceptionService extends ServiceSupport<Acception> implements
 	}
 
 	@Override
-	public void retrieve(Acception t) {
-		supportRetrieve(mapper, t);
-	}
-
-	@Override
-	public void retrieveOnlyNull(Acception t) {
-		supportRetrieveOnlyNull(mapper, t);
-	}
-
-	@Override
 	public int delete(Acception t) {
 		return supportDelete(mapper, t);
 	}
@@ -73,5 +62,10 @@ public class AcceptionService extends ServiceSupport<Acception> implements
 		expert.removeAllAcception();
 		acception.setExpert(expert);
 		expert.setAcception(mapper.selectAll(acception));
+	}
+
+	@Override
+	public Acception selectOne(Acception t) {
+		return supportSelectOne(mapper, t);
 	}
 }

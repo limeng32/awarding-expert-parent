@@ -2,17 +2,15 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.util.Collection;
 
-import limeng32.mirage.util.service.ServiceSupport;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.chinaunicom.awarding.mapper.NoticeMapper;
 import cn.chinaunicom.awarding.project.persist.Task;
+import limeng32.mirage.util.service.ServiceSupport;
 
 @Service
-public class NoticeService extends ServiceSupport<Notice> implements
-		NoticeMapper {
+public class NoticeService extends ServiceSupport<Notice> implements NoticeMapper {
 	@Autowired
 	private NoticeMapper mapper;
 
@@ -42,16 +40,6 @@ public class NoticeService extends ServiceSupport<Notice> implements
 	}
 
 	@Override
-	public void retrieve(Notice t) {
-		supportRetrieve(mapper, t);
-	}
-
-	@Override
-	public void retrieveOnlyNull(Notice t) {
-		supportRetrieveOnlyNull(mapper, t);
-	}
-
-	@Override
 	public int delete(Notice t) {
 		return supportDelete(mapper, t);
 	}
@@ -66,5 +54,10 @@ public class NoticeService extends ServiceSupport<Notice> implements
 		task.removeAllNotice();
 		Notice.setTask(task);
 		task.setNotice(mapper.selectAll(Notice));
+	}
+
+	@Override
+	public Notice selectOne(Notice t) {
+		return supportSelectOne(mapper, t);
 	}
 }

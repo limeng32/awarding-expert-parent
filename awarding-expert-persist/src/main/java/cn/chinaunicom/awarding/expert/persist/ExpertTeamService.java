@@ -11,8 +11,7 @@ import cn.chinaunicom.awarding.mapper.ExpertTeamMapper;
 import cn.chinaunicom.awarding.project.persist.Task;
 
 @Service
-public class ExpertTeamService extends ServiceSupport<ExpertTeam> implements
-		ExpertTeamMapper {
+public class ExpertTeamService extends ServiceSupport<ExpertTeam> implements ExpertTeamMapper {
 	@Autowired
 	private ExpertTeamMapper mapper;
 
@@ -42,16 +41,6 @@ public class ExpertTeamService extends ServiceSupport<ExpertTeam> implements
 	}
 
 	@Override
-	public void retrieve(ExpertTeam t) {
-		supportRetrieve(mapper, t);
-	}
-
-	@Override
-	public void retrieveOnlyNull(ExpertTeam t) {
-		supportRetrieveOnlyNull(mapper, t);
-	}
-
-	@Override
 	public int delete(ExpertTeam t) {
 		return supportDelete(mapper, t);
 	}
@@ -73,5 +62,10 @@ public class ExpertTeamService extends ServiceSupport<ExpertTeam> implements
 		award.removeAllExpertTeam();
 		expertTeam.setAward(award);
 		award.setExpertTeam(mapper.selectAll(expertTeam));
+	}
+
+	@Override
+	public ExpertTeam selectOne(ExpertTeam t) {
+		return supportSelectOne(mapper, t);
 	}
 }

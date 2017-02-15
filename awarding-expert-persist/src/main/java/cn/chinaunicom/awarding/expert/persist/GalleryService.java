@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import cn.chinaunicom.awarding.mapper.GalleryMapper;
 
 @Service
-public class GalleryService extends ServiceSupport<Gallery> implements
-		GalleryMapper {
+public class GalleryService extends ServiceSupport<Gallery> implements GalleryMapper {
 	@Autowired
 	private GalleryMapper mapper;
 
@@ -41,16 +40,6 @@ public class GalleryService extends ServiceSupport<Gallery> implements
 	}
 
 	@Override
-	public void retrieve(Gallery t) {
-		supportRetrieve(mapper, t);
-	}
-
-	@Override
-	public void retrieveOnlyNull(Gallery t) {
-		supportRetrieveOnlyNull(mapper, t);
-	}
-
-	@Override
 	public int delete(Gallery t) {
 		return supportDelete(mapper, t);
 	}
@@ -65,5 +54,10 @@ public class GalleryService extends ServiceSupport<Gallery> implements
 		result.removeAllGallery();
 		gallery.setResult(result);
 		result.setGallery(mapper.selectAll(gallery));
+	}
+
+	@Override
+	public Gallery selectOne(Gallery t) {
+		return supportSelectOne(mapper, t);
 	}
 }

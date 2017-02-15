@@ -25,13 +25,15 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import com.github.springtestdbunit.dataset.FlatXmlDataSetLoader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "classpath:expert-persist-test.xml",
-		"classpath:project-service.xml", "classpath:account-service.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-		DirtiesContextTestExecutionListener.class,
+@ContextConfiguration({ "classpath:expert-persist-test.xml", "classpath:project-service.xml",
+		"classpath:account-service.xml" })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
 		DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(dataSetLoader = FlatXmlDataSetLoader.class)
 public class ExpertTeamExpertTest {
+	
+	@Autowired
+	private AwardService awardService;
 
 	@Autowired
 	private ExpertService expertService;
@@ -55,12 +57,10 @@ public class ExpertTeamExpertTest {
 		Expert expert2 = expertService.select("e2");
 		Assert.assertEquals("e", expertTeamExpert.getExpert().getId());
 		Assert.assertEquals("name", expertTeamExpert.getExpertTeam().getName());
-		Assert.assertEquals(ExpertTeamExpertStatus.leader,
-				expertTeamExpert.getStatus());
+		Assert.assertEquals(ExpertTeamExpertStatus.leader, expertTeamExpert.getStatus());
 
 		ExpertTeam expertTeam = expertTeamService.select("et");
-		expertTeamExpertService.loadExpertTeam(expertTeam,
-				new ExpertTeamExpert());
+		expertTeamExpertService.loadExpertTeam(expertTeam, new ExpertTeamExpert());
 		Assert.assertEquals(1, expertTeam.getExpertTeamExpert().size());
 
 		expertTeamExpert.setExpert(expert2);
@@ -81,12 +81,10 @@ public class ExpertTeamExpertTest {
 		ete.setExpert(e);
 		expertTeamExpertService.insert(ete);
 
-		ExpertTeamExpert expertTeamExpert = expertTeamExpertService.select(ete
-				.getId());
+		ExpertTeamExpert expertTeamExpert = expertTeamExpertService.select(ete.getId());
 		Assert.assertNotNull(expertTeamExpert.getExpert());
 		expertService.delete(e);
-		ExpertTeamExpert expertTeamExpert2 = expertTeamExpertService.select(ete
-				.getId());
+		ExpertTeamExpert expertTeamExpert2 = expertTeamExpertService.select(ete.getId());
 		Assert.assertNull(expertTeamExpert2.getExpert());
 	}
 
@@ -107,13 +105,37 @@ public class ExpertTeamExpertTest {
 		ete.setStatus(ExpertTeamExpertStatus.leader);
 		ete.setExpertTeam(et);
 		expertTeamExpertService.insert(ete);
-
-		ExpertTeamExpert expertTeamExpert = expertTeamExpertService.select(ete
-				.getId());
+		
+		ExpertTeamExpert expertTeamExpert = expertTeamExpertService.select(ete.getId());
 		Assert.assertNotNull(expertTeamExpert.getExpertTeam().getTask());
 		taskService.delete(t);
-		ExpertTeamExpert expertTeamExpert2 = expertTeamExpertService.select(ete
-				.getId());
+		ExpertTeamExpert expertTeamExpert2 = expertTeamExpertService.select(ete.getId());
 		Assert.assertNull(expertTeamExpert2.getExpertTeam().getTask());
+	}
+
+	@Test
+	@IfProfileValue(name = "CACHE", value = "true")
+	@DatabaseSetup(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/expertTeamExpertTest/testCache3.xml")
+	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/expertTeamExpertTest/testCache3.result.xml")
+	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/expertTeamExpertTest/testCache3.result.xml")
+	public void testCache3() {
+		Award a = new Award();
+		a.setName("name");
+		awardService.insert(a);
+		ExpertTeam et = new ExpertTeam();
+		et.setName("name");
+		et.setAward(a);
+		expertTeamService.insert(et);
+		ExpertTeamExpert ete = new ExpertTeamExpert();
+		ete.setStatus(ExpertTeamExpertStatus.leader);
+		ete.setExpertTeam(et);
+		expertTeamExpertService.insert(ete);
+		
+		ExpertTeamExpert expertTeamExpert = expertTeamExpertService.select(ete.getId());
+		Assert.assertNotNull(expertTeamExpert.getExpertTeam().getAward());
+		awardService.delete(a);
+		ExpertTeamExpert expertTeamExpert2 = expertTeamExpertService.select(ete.getId());
+		System.out.println(":" + expertTeamExpert2.getExpertTeam().getAward());
+		Assert.assertNull(expertTeamExpert2.getExpertTeam().getAward());
 	}
 }

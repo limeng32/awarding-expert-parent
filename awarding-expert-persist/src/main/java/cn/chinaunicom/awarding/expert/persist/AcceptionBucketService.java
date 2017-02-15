@@ -2,16 +2,15 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.util.Collection;
 
-import limeng32.mirage.util.service.ServiceSupport;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.chinaunicom.awarding.mapper.AcceptionBucketMapper;
+import limeng32.mirage.util.service.ServiceSupport;
 
 @Service
-public class AcceptionBucketService extends ServiceSupport<AcceptionBucket>
-		implements AcceptionBucketMapper {
+public class AcceptionBucketService extends ServiceSupport<AcceptionBucket> implements AcceptionBucketMapper {
+
 	@Autowired
 	private AcceptionBucketMapper mapper;
 
@@ -41,16 +40,6 @@ public class AcceptionBucketService extends ServiceSupport<AcceptionBucket>
 	}
 
 	@Override
-	public void retrieve(AcceptionBucket t) {
-		supportRetrieve(mapper, t);
-	}
-
-	@Override
-	public void retrieveOnlyNull(AcceptionBucket t) {
-		supportRetrieveOnlyNull(mapper, t);
-	}
-
-	@Override
 	public int delete(AcceptionBucket t) {
 		return supportDelete(mapper, t);
 	}
@@ -61,10 +50,14 @@ public class AcceptionBucketService extends ServiceSupport<AcceptionBucket>
 	}
 
 	@Override
-	public void loadAcception(Acception acception,
-			AcceptionBucket acceptionBucket) {
+	public void loadAcception(Acception acception, AcceptionBucket acceptionBucket) {
 		acception.removeAllAcceptionBucket();
 		acceptionBucket.setAcception(acception);
 		acception.setAcceptionBucket(mapper.selectAll(acceptionBucket));
+	}
+
+	@Override
+	public AcceptionBucket selectOne(AcceptionBucket t) {
+		return supportSelectOne(mapper, t);
 	}
 }

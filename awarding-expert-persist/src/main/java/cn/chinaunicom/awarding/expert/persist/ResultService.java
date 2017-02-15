@@ -2,13 +2,12 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.util.Collection;
 
-import limeng32.mirage.util.service.ServiceSupport;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.chinaunicom.awarding.mapper.ResultMapper;
 import cn.chinaunicom.awarding.project.persist.Task;
+import limeng32.mirage.util.service.ServiceSupport;
 
 @Service
 public class ResultService extends ServiceSupport<Result> implements
@@ -42,16 +41,6 @@ public class ResultService extends ServiceSupport<Result> implements
 	}
 
 	@Override
-	public void retrieve(Result t) {
-		supportRetrieve(mapper, t);
-	}
-
-	@Override
-	public void retrieveOnlyNull(Result t) {
-		supportRetrieveOnlyNull(mapper, t);
-	}
-
-	@Override
 	public int delete(Result t) {
 		return supportDelete(mapper, t);
 	}
@@ -80,5 +69,10 @@ public class ResultService extends ServiceSupport<Result> implements
 		award.removeAllResult();
 		result.setAward(award);
 		award.setResult(mapper.selectAll(result));
+	}
+
+	@Override
+	public Result selectOne(Result t) {
+		return supportSelectOne(mapper, t);
 	}
 }

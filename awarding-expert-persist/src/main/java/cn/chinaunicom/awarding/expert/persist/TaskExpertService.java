@@ -2,13 +2,12 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.util.Collection;
 
-import limeng32.mirage.util.service.ServiceSupport;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.chinaunicom.awarding.mapper.TaskExpertMapper;
 import cn.chinaunicom.awarding.project.persist.Task;
+import limeng32.mirage.util.service.ServiceSupport;
 
 @Service
 public class TaskExpertService extends ServiceSupport<TaskExpert> implements
@@ -42,16 +41,6 @@ public class TaskExpertService extends ServiceSupport<TaskExpert> implements
 	}
 
 	@Override
-	public void retrieve(TaskExpert t) {
-		supportRetrieve(mapper, t);
-	}
-
-	@Override
-	public void retrieveOnlyNull(TaskExpert t) {
-		supportRetrieveOnlyNull(mapper, t);
-	}
-
-	@Override
 	public int delete(TaskExpert t) {
 		return supportDelete(mapper, t);
 	}
@@ -73,5 +62,10 @@ public class TaskExpertService extends ServiceSupport<TaskExpert> implements
 		task.removeAllTaskExpert();
 		taskExpert.setTask(task);
 		task.setTaskExpert(mapper.selectAll(taskExpert));
+	}
+
+	@Override
+	public TaskExpert selectOne(TaskExpert t) {
+		return supportSelectOne(mapper, t);
 	}
 }

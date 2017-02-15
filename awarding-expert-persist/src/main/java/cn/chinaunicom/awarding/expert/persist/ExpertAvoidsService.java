@@ -11,8 +11,7 @@ import cn.chinaunicom.awarding.mapper.ExpertAvoidsMapper;
 import cn.chinaunicom.awarding.project.persist.Task;
 
 @Service
-public class ExpertAvoidsService extends ServiceSupport<ExpertAvoids> implements
-		ExpertAvoidsMapper {
+public class ExpertAvoidsService extends ServiceSupport<ExpertAvoids> implements ExpertAvoidsMapper {
 	@Autowired
 	private ExpertAvoidsMapper mapper;
 
@@ -39,16 +38,6 @@ public class ExpertAvoidsService extends ServiceSupport<ExpertAvoids> implements
 	@Override
 	public int updatePersistent(ExpertAvoids t) {
 		return supportUpdatePersistent(mapper, t);
-	}
-
-	@Override
-	public void retrieve(ExpertAvoids t) {
-		supportRetrieve(mapper, t);
-	}
-
-	@Override
-	public void retrieveOnlyNull(ExpertAvoids t) {
-		supportRetrieveOnlyNull(mapper, t);
 	}
 
 	@Override
@@ -80,5 +69,10 @@ public class ExpertAvoidsService extends ServiceSupport<ExpertAvoids> implements
 		expert.removeAllExpertAvoids();
 		expertAvoids.setExpert(expert);
 		expert.setExpertAvoids(mapper.selectAll(expertAvoids));
+	}
+
+	@Override
+	public ExpertAvoids selectOne(ExpertAvoids t) {
+		return supportSelectOne(mapper, t);
 	}
 }

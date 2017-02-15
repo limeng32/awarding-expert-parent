@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import cn.chinaunicom.awarding.mapper.ExpertMapper;
 
 @Service
-public class ExpertService extends ServiceSupport<Expert> implements
-		ExpertMapper {
+public class ExpertService extends ServiceSupport<Expert> implements ExpertMapper {
 	@Autowired
 	private ExpertMapper mapper;
 
@@ -41,16 +40,6 @@ public class ExpertService extends ServiceSupport<Expert> implements
 	}
 
 	@Override
-	public void retrieve(Expert t) {
-		supportRetrieve(mapper, t);
-	}
-
-	@Override
-	public void retrieveOnlyNull(Expert t) {
-		supportRetrieveOnlyNull(mapper, t);
-	}
-
-	@Override
 	public int delete(Expert t) {
 		return supportDelete(mapper, t);
 	}
@@ -58,6 +47,11 @@ public class ExpertService extends ServiceSupport<Expert> implements
 	@Override
 	public int count(Expert t) {
 		return supportCount(mapper, t);
+	}
+
+	@Override
+	public Expert selectOne(Expert t) {
+		return supportSelectOne(mapper, t);
 	}
 
 }

@@ -11,9 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
-import cn.chinaunicom.awarding.project.persist.Project;
-import cn.chinaunicom.awarding.project.persist.ProjectService;
-
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -23,11 +20,13 @@ import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import com.github.springtestdbunit.dataset.FlatXmlDataSetLoader;
 
+import cn.chinaunicom.awarding.project.persist.Project;
+import cn.chinaunicom.awarding.project.persist.ProjectService;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "classpath:expert-persist-test.xml",
-		"classpath:project-service.xml", "classpath:account-service.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-		DirtiesContextTestExecutionListener.class,
+@ContextConfiguration({ "classpath:expert-persist-test.xml", "classpath:project-service.xml",
+		"classpath:account-service.xml" })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
 		DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(dataSetLoader = FlatXmlDataSetLoader.class)
 public class AcceptionTest {

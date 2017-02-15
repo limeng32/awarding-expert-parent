@@ -2,13 +2,12 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.util.Collection;
 
-import limeng32.mirage.util.service.ServiceSupport;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.chinaunicom.awarding.mapper.VoteMapper;
 import cn.chinaunicom.awarding.project.persist.Task;
+import limeng32.mirage.util.service.ServiceSupport;
 
 @Service
 public class VoteService extends ServiceSupport<Vote> implements VoteMapper {
@@ -38,16 +37,6 @@ public class VoteService extends ServiceSupport<Vote> implements VoteMapper {
 	@Override
 	public int updatePersistent(Vote t) {
 		return supportUpdatePersistent(mapper, t);
-	}
-
-	@Override
-	public void retrieve(Vote t) {
-		supportRetrieve(mapper, t);
-	}
-
-	@Override
-	public void retrieveOnlyNull(Vote t) {
-		supportRetrieveOnlyNull(mapper, t);
 	}
 
 	@Override
@@ -86,5 +75,10 @@ public class VoteService extends ServiceSupport<Vote> implements VoteMapper {
 		award.removeAllVote();
 		vote.setAward(award);
 		award.setVote(mapper.selectAll(vote));
+	}
+
+	@Override
+	public Vote selectOne(Vote t) {
+		return supportSelectOne(mapper, t);
 	}
 }

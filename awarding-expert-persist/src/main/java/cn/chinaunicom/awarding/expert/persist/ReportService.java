@@ -2,17 +2,15 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.util.Collection;
 
-import limeng32.mirage.util.service.ServiceSupport;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.chinaunicom.awarding.mapper.ReportMapper;
 import cn.chinaunicom.awarding.project.persist.Task;
+import limeng32.mirage.util.service.ServiceSupport;
 
 @Service
-public class ReportService extends ServiceSupport<Report> implements
-		ReportMapper {
+public class ReportService extends ServiceSupport<Report> implements ReportMapper {
 	@Autowired
 	private ReportMapper mapper;
 
@@ -42,16 +40,6 @@ public class ReportService extends ServiceSupport<Report> implements
 	}
 
 	@Override
-	public void retrieve(Report t) {
-		supportRetrieve(mapper, t);
-	}
-
-	@Override
-	public void retrieveOnlyNull(Report t) {
-		supportRetrieveOnlyNull(mapper, t);
-	}
-
-	@Override
 	public int delete(Report t) {
 		return supportDelete(mapper, t);
 	}
@@ -66,5 +54,10 @@ public class ReportService extends ServiceSupport<Report> implements
 		task.removeAllReport();
 		report.setTask(task);
 		task.setReport(mapper.selectAll(report));
+	}
+
+	@Override
+	public Report selectOne(Report t) {
+		return supportSelectOne(mapper, t);
 	}
 }
