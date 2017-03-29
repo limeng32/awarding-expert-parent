@@ -4,10 +4,10 @@ import java.util.Collection;
 
 import cn.chinaunicom.awarding.expert.persist.Notice;
 import cn.chinaunicom.awarding.expert.persist.NoticeBucket;
+import indi.mybatis.flying.annotations.CacheAnnotation;
+import indi.mybatis.flying.annotations.CacheRoleAnnotation;
+import indi.mybatis.flying.statics.CacheRoleType;
 import limeng32.mirage.util.mapper.MapperFace;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheAnnotation;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheRoleAnnotation;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheRoleType;
 
 @CacheRoleAnnotation(ObserverClass = { Notice.class }, TriggerClass = { NoticeBucket.class })
 public interface NoticeBucketMapper extends MapperFace<NoticeBucket> {

@@ -2,18 +2,16 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.io.Serializable;
 
-import limeng32.mirage.util.pojo.PojoSupport;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
-
 import org.apache.ibatis.type.JdbcType;
 
 import cn.chinaunicom.awarding.project.persist.Task;
+import indi.mybatis.flying.annotations.FieldMapperAnnotation;
+import indi.mybatis.flying.annotations.TableMapperAnnotation;
+import limeng32.mirage.util.pojo.PojoSupport;
 
 @TableMapperAnnotation(tableName = "expertAvoids")
-public class ExpertAvoids extends PojoSupport<ExpertAvoids> implements
-		Serializable, cn.chinaunicom.awarding.project.face.ExpertAvoidsFace,
-		cn.chinaunicom.awarding.expert.face.ExpertAvoidsFace {
+public class ExpertAvoids extends PojoSupport<ExpertAvoids> implements Serializable,
+		cn.chinaunicom.awarding.project.face.ExpertAvoidsFace, cn.chinaunicom.awarding.expert.face.ExpertAvoidsFace {
 
 	private static final long serialVersionUID = 1L;
 

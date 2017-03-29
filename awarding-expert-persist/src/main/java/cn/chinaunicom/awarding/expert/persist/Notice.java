@@ -2,22 +2,20 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.io.Serializable;
 
-import limeng32.mirage.util.pojo.PojoSupport;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
-
 import org.apache.ibatis.type.JdbcType;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 import cn.chinaunicom.awarding.expert.enums.NoticeStatus;
 import cn.chinaunicom.awarding.expert.face.NoticeBucketFace;
 import cn.chinaunicom.awarding.project.persist.Task;
-
-import com.alibaba.fastjson.annotation.JSONField;
+import indi.mybatis.flying.annotations.FieldMapperAnnotation;
+import indi.mybatis.flying.annotations.TableMapperAnnotation;
+import limeng32.mirage.util.pojo.PojoSupport;
 
 @TableMapperAnnotation(tableName = "notice")
 public class Notice extends PojoSupport<Notice> implements Serializable,
-		cn.chinaunicom.awarding.project.face.NoticeFace,
-		cn.chinaunicom.awarding.expert.face.NoticeFace {
+		cn.chinaunicom.awarding.project.face.NoticeFace, cn.chinaunicom.awarding.expert.face.NoticeFace {
 
 	private static final long serialVersionUID = 1L;
 
@@ -93,11 +91,9 @@ public class Notice extends PojoSupport<Notice> implements Serializable,
 		return noticeBucket.iterator();
 	}
 
-	public void setNoticeBucket(
-			java.util.Collection<? extends NoticeBucketFace> newNoticeBucket) {
+	public void setNoticeBucket(java.util.Collection<? extends NoticeBucketFace> newNoticeBucket) {
 		removeAllNoticeBucket();
-		for (java.util.Iterator<? extends NoticeBucketFace> iter = newNoticeBucket
-				.iterator(); iter.hasNext();)
+		for (java.util.Iterator<? extends NoticeBucketFace> iter = newNoticeBucket.iterator(); iter.hasNext();)
 			addNoticeBucket((NoticeBucketFace) iter.next());
 	}
 
@@ -144,8 +140,7 @@ public class Notice extends PojoSupport<Notice> implements Serializable,
 	public void removeAllNoticeBucket() {
 		if (noticeBucket != null) {
 			NoticeBucketFace oldNoticeBucket;
-			for (java.util.Iterator<NoticeBucketFace> iter = getIteratorNoticeBucket(); iter
-					.hasNext();) {
+			for (java.util.Iterator<NoticeBucketFace> iter = getIteratorNoticeBucket(); iter.hasNext();) {
 				oldNoticeBucket = (NoticeBucketFace) iter.next();
 				iter.remove();
 				oldNoticeBucket.setNotice((Notice) null);

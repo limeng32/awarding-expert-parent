@@ -1,9 +1,9 @@
 package cn.chinaunicom.awarding.expert.condition;
 
-import limeng32.mybatis.mybatisPlugin.cachePlugin.Conditionable;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.Limitable;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.Sortable;
 import cn.chinaunicom.awarding.expert.persist.Expert;
+import indi.mybatis.flying.models.Conditionable;
+import indi.mybatis.flying.models.Limitable;
+import indi.mybatis.flying.models.Sortable;
 
 public class ExpertCondition extends Expert implements Conditionable {
 

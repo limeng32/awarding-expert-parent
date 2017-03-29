@@ -2,15 +2,15 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.io.Serializable;
 
-import limeng32.mirage.util.pojo.PojoSupport;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
-
 import org.apache.ibatis.type.JdbcType;
 
+import indi.mybatis.flying.annotations.FieldMapperAnnotation;
+import indi.mybatis.flying.annotations.TableMapperAnnotation;
+import limeng32.mirage.util.pojo.PojoSupport;
+
 @TableMapperAnnotation(tableName = "gallery")
-public class Gallery extends PojoSupport<Gallery> implements Serializable,
-		cn.chinaunicom.awarding.expert.face.GalleryFace {
+public class Gallery extends PojoSupport<Gallery>
+		implements Serializable, cn.chinaunicom.awarding.expert.face.GalleryFace {
 
 	private static final long serialVersionUID = 1L;
 

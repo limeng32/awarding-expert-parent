@@ -2,15 +2,15 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.io.Serializable;
 
-import limeng32.mirage.util.pojo.PojoSupport;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
-
 import org.apache.ibatis.type.JdbcType;
 
+import indi.mybatis.flying.annotations.FieldMapperAnnotation;
+import indi.mybatis.flying.annotations.TableMapperAnnotation;
+import limeng32.mirage.util.pojo.PojoSupport;
+
 @TableMapperAnnotation(tableName = "acceptionBucket")
-public class AcceptionBucket extends PojoSupport<AcceptionBucket> implements
-		Serializable, cn.chinaunicom.awarding.expert.face.AcceptionBucketFace {
+public class AcceptionBucket extends PojoSupport<AcceptionBucket>
+		implements Serializable, cn.chinaunicom.awarding.expert.face.AcceptionBucketFace {
 
 	private static final long serialVersionUID = 1L;
 

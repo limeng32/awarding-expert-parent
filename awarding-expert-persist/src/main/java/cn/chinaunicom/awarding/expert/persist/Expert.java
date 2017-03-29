@@ -2,12 +2,9 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.io.Serializable;
 
-import limeng32.mirage.util.pojo.PojoSupport;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.OpLockType;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
-
 import org.apache.ibatis.type.JdbcType;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 import cn.chinaunicom.awarding.account.persist.Account;
 import cn.chinaunicom.awarding.expert.face.AcceptionFace;
@@ -15,13 +12,14 @@ import cn.chinaunicom.awarding.expert.face.ExpertAvoidsFace;
 import cn.chinaunicom.awarding.expert.face.ExpertTeamExpertFace;
 import cn.chinaunicom.awarding.expert.face.TaskExpertFace;
 import cn.chinaunicom.awarding.expert.face.VoteFace;
-
-import com.alibaba.fastjson.annotation.JSONField;
+import indi.mybatis.flying.annotations.FieldMapperAnnotation;
+import indi.mybatis.flying.annotations.TableMapperAnnotation;
+import indi.mybatis.flying.statics.OpLockType;
+import limeng32.mirage.util.pojo.PojoSupport;
 
 @TableMapperAnnotation(tableName = "expert")
 public class Expert extends PojoSupport<Expert> implements Serializable,
-		cn.chinaunicom.awarding.account.face.ExpertFace,
-		cn.chinaunicom.awarding.expert.face.ExpertFace {
+		cn.chinaunicom.awarding.account.face.ExpertFace, cn.chinaunicom.awarding.expert.face.ExpertFace {
 
 	private static final long serialVersionUID = 1L;
 
@@ -97,11 +95,9 @@ public class Expert extends PojoSupport<Expert> implements Serializable,
 		return acception.iterator();
 	}
 
-	public void setAcception(
-			java.util.Collection<? extends AcceptionFace> newAcception) {
+	public void setAcception(java.util.Collection<? extends AcceptionFace> newAcception) {
 		removeAllAcception();
-		for (java.util.Iterator<? extends AcceptionFace> iter = newAcception
-				.iterator(); iter.hasNext();)
+		for (java.util.Iterator<? extends AcceptionFace> iter = newAcception.iterator(); iter.hasNext();)
 			addAcception((AcceptionFace) iter.next());
 	}
 
@@ -148,8 +144,7 @@ public class Expert extends PojoSupport<Expert> implements Serializable,
 	public void removeAllAcception() {
 		if (acception != null) {
 			AcceptionFace oldAcception;
-			for (java.util.Iterator<AcceptionFace> iter = getIteratorAcception(); iter
-					.hasNext();) {
+			for (java.util.Iterator<AcceptionFace> iter = getIteratorAcception(); iter.hasNext();) {
 				oldAcception = (AcceptionFace) iter.next();
 				iter.remove();
 				oldAcception.setExpert((Expert) null);
@@ -171,11 +166,9 @@ public class Expert extends PojoSupport<Expert> implements Serializable,
 		return taskExpert.iterator();
 	}
 
-	public void setTaskExpert(
-			java.util.Collection<? extends TaskExpertFace> newTaskExpert) {
+	public void setTaskExpert(java.util.Collection<? extends TaskExpertFace> newTaskExpert) {
 		removeAllTaskExpert();
-		for (java.util.Iterator<? extends TaskExpertFace> iter = newTaskExpert
-				.iterator(); iter.hasNext();)
+		for (java.util.Iterator<? extends TaskExpertFace> iter = newTaskExpert.iterator(); iter.hasNext();)
 			addTaskExpert((TaskExpertFace) iter.next());
 	}
 
@@ -222,8 +215,7 @@ public class Expert extends PojoSupport<Expert> implements Serializable,
 	public void removeAllTaskExpert() {
 		if (taskExpert != null) {
 			TaskExpertFace oldTaskExpert;
-			for (java.util.Iterator<TaskExpertFace> iter = getIteratorTaskExpert(); iter
-					.hasNext();) {
+			for (java.util.Iterator<TaskExpertFace> iter = getIteratorTaskExpert(); iter.hasNext();) {
 				oldTaskExpert = (TaskExpertFace) iter.next();
 				iter.remove();
 				oldTaskExpert.setExpert((Expert) null);
@@ -245,11 +237,9 @@ public class Expert extends PojoSupport<Expert> implements Serializable,
 		return expertAvoids.iterator();
 	}
 
-	public void setExpertAvoids(
-			java.util.Collection<? extends ExpertAvoidsFace> newExpertAvoids) {
+	public void setExpertAvoids(java.util.Collection<? extends ExpertAvoidsFace> newExpertAvoids) {
 		removeAllExpertAvoids();
-		for (java.util.Iterator<? extends ExpertAvoidsFace> iter = newExpertAvoids
-				.iterator(); iter.hasNext();)
+		for (java.util.Iterator<? extends ExpertAvoidsFace> iter = newExpertAvoids.iterator(); iter.hasNext();)
 			addExpertAvoids((ExpertAvoidsFace) iter.next());
 	}
 
@@ -296,8 +286,7 @@ public class Expert extends PojoSupport<Expert> implements Serializable,
 	public void removeAllExpertAvoids() {
 		if (expertAvoids != null) {
 			ExpertAvoidsFace oldExpertAvoids;
-			for (java.util.Iterator<ExpertAvoidsFace> iter = getIteratorExpertAvoids(); iter
-					.hasNext();) {
+			for (java.util.Iterator<ExpertAvoidsFace> iter = getIteratorExpertAvoids(); iter.hasNext();) {
 				oldExpertAvoids = (ExpertAvoidsFace) iter.next();
 				iter.remove();
 				oldExpertAvoids.setExpert((Expert) null);
@@ -321,8 +310,7 @@ public class Expert extends PojoSupport<Expert> implements Serializable,
 
 	public void setVote(java.util.Collection<? extends VoteFace> newVote) {
 		removeAllVote();
-		for (java.util.Iterator<? extends VoteFace> iter = newVote.iterator(); iter
-				.hasNext();)
+		for (java.util.Iterator<? extends VoteFace> iter = newVote.iterator(); iter.hasNext();)
 			addVote((VoteFace) iter.next());
 	}
 
@@ -369,8 +357,7 @@ public class Expert extends PojoSupport<Expert> implements Serializable,
 	public void removeAllVote() {
 		if (vote != null) {
 			VoteFace oldVote;
-			for (java.util.Iterator<VoteFace> iter = getIteratorVote(); iter
-					.hasNext();) {
+			for (java.util.Iterator<VoteFace> iter = getIteratorVote(); iter.hasNext();) {
 				oldVote = (VoteFace) iter.next();
 				iter.remove();
 				oldVote.setExpert((Expert) null);
@@ -392,11 +379,9 @@ public class Expert extends PojoSupport<Expert> implements Serializable,
 		return expertTeamExpert.iterator();
 	}
 
-	public void setExpertTeamExpert(
-			java.util.Collection<? extends ExpertTeamExpertFace> newExpertTeamExpert) {
+	public void setExpertTeamExpert(java.util.Collection<? extends ExpertTeamExpertFace> newExpertTeamExpert) {
 		removeAllExpertTeamExpert();
-		for (java.util.Iterator<? extends ExpertTeamExpertFace> iter = newExpertTeamExpert
-				.iterator(); iter.hasNext();)
+		for (java.util.Iterator<? extends ExpertTeamExpertFace> iter = newExpertTeamExpert.iterator(); iter.hasNext();)
 			addExpertTeamExpert((ExpertTeamExpertFace) iter.next());
 	}
 
@@ -443,8 +428,7 @@ public class Expert extends PojoSupport<Expert> implements Serializable,
 	public void removeAllExpertTeamExpert() {
 		if (expertTeamExpert != null) {
 			ExpertTeamExpertFace oldExpertTeamExpert;
-			for (java.util.Iterator<ExpertTeamExpertFace> iter = getIteratorExpertTeamExpert(); iter
-					.hasNext();) {
+			for (java.util.Iterator<ExpertTeamExpertFace> iter = getIteratorExpertTeamExpert(); iter.hasNext();) {
 				oldExpertTeamExpert = (ExpertTeamExpertFace) iter.next();
 				iter.remove();
 				oldExpertTeamExpert.setExpert((Expert) null);

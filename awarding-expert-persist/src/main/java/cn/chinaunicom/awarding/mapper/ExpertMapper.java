@@ -2,12 +2,12 @@ package cn.chinaunicom.awarding.mapper;
 
 import java.util.Collection;
 
-import limeng32.mirage.util.mapper.MapperFace;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheAnnotation;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheRoleAnnotation;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheRoleType;
 import cn.chinaunicom.awarding.account.persist.Account;
 import cn.chinaunicom.awarding.expert.persist.Expert;
+import indi.mybatis.flying.annotations.CacheAnnotation;
+import indi.mybatis.flying.annotations.CacheRoleAnnotation;
+import indi.mybatis.flying.statics.CacheRoleType;
+import limeng32.mirage.util.mapper.MapperFace;
 
 @CacheRoleAnnotation(ObserverClass = { Account.class }, TriggerClass = { Expert.class })
 public interface ExpertMapper extends MapperFace<Expert> {

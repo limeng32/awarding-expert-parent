@@ -7,13 +7,6 @@ import java.util.LinkedHashSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import limeng32.mirage.util.config.Callback;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.Conditionable;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.Order;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.Page;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.PageParam;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.SortParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,6 +25,12 @@ import cn.chinaunicom.awarding.project.condition.TaskCondition;
 import cn.chinaunicom.awarding.project.enums.TaskStatus;
 import cn.chinaunicom.awarding.project.persist.Task;
 import cn.chinaunicom.awarding.project.persist.TaskService;
+import indi.mybatis.flying.models.Conditionable;
+import indi.mybatis.flying.pagination.Order;
+import indi.mybatis.flying.pagination.Page;
+import indi.mybatis.flying.pagination.PageParam;
+import indi.mybatis.flying.pagination.SortParam;
+import limeng32.mirage.util.config.Callback;
 
 @Controller
 public class ExpertCommonController {
@@ -68,8 +67,7 @@ public class ExpertCommonController {
 		mm.addAttribute("_content", callback);
 		TaskCondition tc = new TaskCondition();
 		tc.setLimiter((new PageParam(1, 1)));
-		tc.setSorter(new SortParam(new Order("begin",
-				Conditionable.Sequence.desc)));
+		tc.setSorter(new SortParam(new Order("begin", Conditionable.Sequence.desc)));
 		tc.setStatus(TaskStatus.ongoing);
 		Collection<Task> taskC = taskService.selectAll(tc);
 		Task[] tasks = taskC.toArray(new Task[taskC.size()]);
@@ -97,13 +95,11 @@ public class ExpertCommonController {
 		mm.addAttribute("_content", callback);
 		TaskCondition tc = new TaskCondition();
 		tc.setLimiter((new PageParam(1, 1)));
-		tc.setSorter(new SortParam(new Order("begin",
-				Conditionable.Sequence.desc)));
+		tc.setSorter(new SortParam(new Order("begin", Conditionable.Sequence.desc)));
 		tc.setStatus(TaskStatus.ongoing);
 		TaskExpertCondition tec2 = new TaskExpertCondition();
 		tec2.setTask(tc);
-		tec2.setSorter(new SortParam(new Order("timeStamp",
-				Conditionable.Sequence.asc)));
+		tec2.setSorter(new SortParam(new Order("timeStamp", Conditionable.Sequence.asc)));
 		tec2.setLimiter(new PageParam(1, 10));
 		Collection<TaskExpert> taskExpertC = taskExpertService.selectAll(tec2);
 
@@ -118,16 +114,14 @@ public class ExpertCommonController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST }, value = "/expert/listExpert")
-	public String listExpert(HttpServletRequest request,
-			HttpServletResponse response, ModelMap mm,
+	public String listExpert(HttpServletRequest request, HttpServletResponse response, ModelMap mm,
 			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
 		Callback callback = new Callback();
 		mm.addAttribute("_content", callback);
 
 		TaskCondition tc = new TaskCondition();
 		tc.setLimiter((new PageParam(1, 1)));
-		tc.setSorter(new SortParam(new Order("begin",
-				Conditionable.Sequence.desc)));
+		tc.setSorter(new SortParam(new Order("begin", Conditionable.Sequence.desc)));
 		tc.setStatus(TaskStatus.ongoing);
 		if (pageNo == null) {
 			pageNo = 1;
@@ -146,19 +140,16 @@ public class ExpertCommonController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST }, value = "/expert/listInvitedExpert")
-	public String listInvitedExpert(HttpServletRequest request,
-			HttpServletResponse response, ModelMap mm,
+	public String listInvitedExpert(HttpServletRequest request, HttpServletResponse response, ModelMap mm,
 			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
 		Callback callback = new Callback();
 		mm.addAttribute("_content", callback);
 		TaskCondition tc = new TaskCondition();
 		tc.setLimiter((new PageParam(1, 1)));
-		tc.setSorter(new SortParam(new Order("begin",
-				Conditionable.Sequence.desc)));
+		tc.setSorter(new SortParam(new Order("begin", Conditionable.Sequence.desc)));
 		tc.setStatus(TaskStatus.ongoing);
 		TaskExpertCondition tec2 = new TaskExpertCondition();
-		tec2.setSorter(new SortParam(new Order("timeStamp",
-				Conditionable.Sequence.asc)));
+		tec2.setSorter(new SortParam(new Order("timeStamp", Conditionable.Sequence.asc)));
 		tec2.setTask(tc);
 		if (pageNo == null) {
 			pageNo = 1;
@@ -176,16 +167,14 @@ public class ExpertCommonController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST }, value = "/expert/unInviteExpert")
-	public String unInviteExpert(HttpServletRequest request,
-			HttpServletResponse response, ModelMap mm,
+	public String unInviteExpert(HttpServletRequest request, HttpServletResponse response, ModelMap mm,
 			@RequestParam(value = "expertId") String expertId,
 			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
 		Callback callback = new Callback();
 		mm.addAttribute("_content", callback);
 		TaskCondition tc = new TaskCondition();
 		tc.setLimiter((new PageParam(1, 1)));
-		tc.setSorter(new SortParam(new Order("begin",
-				Conditionable.Sequence.desc)));
+		tc.setSorter(new SortParam(new Order("begin", Conditionable.Sequence.desc)));
 		tc.setStatus(TaskStatus.ongoing);
 
 		TaskExpert tec = new TaskExpert();
@@ -201,8 +190,7 @@ public class ExpertCommonController {
 		}
 
 		TaskExpertCondition tec2 = new TaskExpertCondition();
-		tec2.setSorter(new SortParam(new Order("timeStamp",
-				Conditionable.Sequence.asc)));
+		tec2.setSorter(new SortParam(new Order("timeStamp", Conditionable.Sequence.asc)));
 		tec2.setTask(tc);
 		if (pageNo == null) {
 			pageNo = 1;
@@ -222,10 +210,8 @@ public class ExpertCommonController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST }, value = "/expert/inviteExpert")
-	public String inviteExpert(HttpServletRequest request,
-			HttpServletResponse response, ModelMap mm,
-			@RequestParam(value = "expertId") String expertId,
-			@RequestParam(value = "taskId") String taskId,
+	public String inviteExpert(HttpServletRequest request, HttpServletResponse response, ModelMap mm,
+			@RequestParam(value = "expertId") String expertId, @RequestParam(value = "taskId") String taskId,
 			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
 		Callback callback = new Callback();
 		mm.addAttribute("_content", callback);
@@ -243,13 +229,10 @@ public class ExpertCommonController {
 			TaskExpertCondition tec = new TaskExpertCondition();
 			tec.setTask(tc);
 			tec.setLimiter(new PageParam(pageNo == null ? 1 : pageNo, 10));
-			tec.setSorter(new SortParam(new Order("timeStamp",
-					Conditionable.Sequence.asc)));
-			Collection<TaskExpert> taskExpertC = taskExpertService
-					.selectAll(tec);
+			tec.setSorter(new SortParam(new Order("timeStamp", Conditionable.Sequence.asc)));
+			Collection<TaskExpert> taskExpertC = taskExpertService.selectAll(tec);
 			if (!pageNo.equals(tec.getLimiter().getMaxPageNum())) {
-				tec.setLimiter(new PageParam(tec.getLimiter().getMaxPageNum(),
-						10));
+				tec.setLimiter(new PageParam(tec.getLimiter().getMaxPageNum(), 10));
 				taskExpertC = taskExpertService.selectAll(tec);
 			}
 			Collection<Expert> expertC = new LinkedHashSet<>();
@@ -266,10 +249,8 @@ public class ExpertCommonController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST }, value = "/expert/emailExpert")
-	public String emailExpert(HttpServletRequest request,
-			HttpServletResponse response, ModelMap mm,
-			@RequestParam(value = "expertId") String expertId,
-			@RequestParam(value = "taskId") String taskId) {
+	public String emailExpert(HttpServletRequest request, HttpServletResponse response, ModelMap mm,
+			@RequestParam(value = "expertId") String expertId, @RequestParam(value = "taskId") String taskId) {
 		Callback callback = new Callback();
 		mm.addAttribute("_content", callback);
 		Expert ec = new Expert();
@@ -292,10 +273,8 @@ public class ExpertCommonController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST }, value = "/expert/confirmExpert")
-	public String confirmExpert(HttpServletRequest request,
-			HttpServletResponse response, ModelMap mm,
-			@RequestParam(value = "expertId") String expertId,
-			@RequestParam(value = "taskId") String taskId) {
+	public String confirmExpert(HttpServletRequest request, HttpServletResponse response, ModelMap mm,
+			@RequestParam(value = "expertId") String expertId, @RequestParam(value = "taskId") String taskId) {
 		Callback callback = new Callback();
 		mm.addAttribute("_content", callback);
 		Expert ec = new Expert();

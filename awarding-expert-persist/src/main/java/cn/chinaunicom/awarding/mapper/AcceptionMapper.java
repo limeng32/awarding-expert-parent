@@ -2,13 +2,13 @@ package cn.chinaunicom.awarding.mapper;
 
 import java.util.Collection;
 
-import limeng32.mirage.util.mapper.MapperFace;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheAnnotation;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheRoleAnnotation;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheRoleType;
 import cn.chinaunicom.awarding.expert.persist.Acception;
 import cn.chinaunicom.awarding.expert.persist.Expert;
 import cn.chinaunicom.awarding.project.persist.Project;
+import indi.mybatis.flying.annotations.CacheAnnotation;
+import indi.mybatis.flying.annotations.CacheRoleAnnotation;
+import indi.mybatis.flying.statics.CacheRoleType;
+import limeng32.mirage.util.mapper.MapperFace;
 
 @CacheRoleAnnotation(ObserverClass = { Expert.class, Project.class }, TriggerClass = { Acception.class })
 public interface AcceptionMapper extends MapperFace<Acception> {

@@ -5,10 +5,10 @@ import java.util.Collection;
 import cn.chinaunicom.awarding.expert.persist.Expert;
 import cn.chinaunicom.awarding.expert.persist.ExpertTeam;
 import cn.chinaunicom.awarding.expert.persist.ExpertTeamExpert;
+import indi.mybatis.flying.annotations.CacheAnnotation;
+import indi.mybatis.flying.annotations.CacheRoleAnnotation;
+import indi.mybatis.flying.statics.CacheRoleType;
 import limeng32.mirage.util.mapper.MapperFace;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheAnnotation;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheRoleAnnotation;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheRoleType;
 
 @CacheRoleAnnotation(ObserverClass = { Expert.class, ExpertTeam.class }, TriggerClass = { ExpertTeamExpert.class })
 public interface ExpertTeamExpertMapper extends MapperFace<ExpertTeamExpert> {

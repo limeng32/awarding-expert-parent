@@ -24,10 +24,6 @@
 			<artifactId>mirage-util</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>limeng32.mybatis</groupId>
-			<artifactId>mybatisPlugin</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
 		</dependency>

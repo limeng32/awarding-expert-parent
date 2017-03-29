@@ -2,25 +2,23 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.io.Serializable;
 
-import limeng32.mirage.util.pojo.PojoSupport;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.OpLockType;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
-
 import org.apache.ibatis.type.JdbcType;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 import cn.chinaunicom.awarding.expert.face.AcceptionBucketFace;
 import cn.chinaunicom.awarding.expert.face.ExpertAvoidsFace;
 import cn.chinaunicom.awarding.expert.face.ResultFace;
 import cn.chinaunicom.awarding.expert.face.VoteFace;
 import cn.chinaunicom.awarding.project.persist.Project;
-
-import com.alibaba.fastjson.annotation.JSONField;
+import indi.mybatis.flying.annotations.FieldMapperAnnotation;
+import indi.mybatis.flying.annotations.TableMapperAnnotation;
+import indi.mybatis.flying.statics.OpLockType;
+import limeng32.mirage.util.pojo.PojoSupport;
 
 @TableMapperAnnotation(tableName = "acception")
 public class Acception extends PojoSupport<Acception> implements Serializable,
-		cn.chinaunicom.awarding.project.face.AcceptionFace,
-		cn.chinaunicom.awarding.expert.face.AcceptionFace {
+		cn.chinaunicom.awarding.project.face.AcceptionFace, cn.chinaunicom.awarding.expert.face.AcceptionFace {
 
 	private static final long serialVersionUID = 1L;
 
@@ -134,8 +132,7 @@ public class Acception extends PojoSupport<Acception> implements Serializable,
 
 	public void setVote(java.util.Collection<? extends VoteFace> newVote) {
 		removeAllVote();
-		for (java.util.Iterator<? extends VoteFace> iter = newVote.iterator(); iter
-				.hasNext();)
+		for (java.util.Iterator<? extends VoteFace> iter = newVote.iterator(); iter.hasNext();)
 			addVote((VoteFace) iter.next());
 	}
 
@@ -182,8 +179,7 @@ public class Acception extends PojoSupport<Acception> implements Serializable,
 	public void removeAllVote() {
 		if (vote != null) {
 			VoteFace oldVote;
-			for (java.util.Iterator<VoteFace> iter = getIteratorVote(); iter
-					.hasNext();) {
+			for (java.util.Iterator<VoteFace> iter = getIteratorVote(); iter.hasNext();) {
 				oldVote = (VoteFace) iter.next();
 				iter.remove();
 				oldVote.setAcception((Acception) null);
@@ -205,11 +201,9 @@ public class Acception extends PojoSupport<Acception> implements Serializable,
 		return acceptionBucket.iterator();
 	}
 
-	public void setAcceptionBucket(
-			java.util.Collection<? extends AcceptionBucketFace> newAcceptionBucket) {
+	public void setAcceptionBucket(java.util.Collection<? extends AcceptionBucketFace> newAcceptionBucket) {
 		removeAllAcceptionBucket();
-		for (java.util.Iterator<? extends AcceptionBucketFace> iter = newAcceptionBucket
-				.iterator(); iter.hasNext();)
+		for (java.util.Iterator<? extends AcceptionBucketFace> iter = newAcceptionBucket.iterator(); iter.hasNext();)
 			addAcceptionBucket((AcceptionBucketFace) iter.next());
 	}
 
@@ -256,8 +250,7 @@ public class Acception extends PojoSupport<Acception> implements Serializable,
 	public void removeAllAcceptionBucket() {
 		if (acceptionBucket != null) {
 			AcceptionBucketFace oldAcceptionBucket;
-			for (java.util.Iterator<AcceptionBucketFace> iter = getIteratorAcceptionBucket(); iter
-					.hasNext();) {
+			for (java.util.Iterator<AcceptionBucketFace> iter = getIteratorAcceptionBucket(); iter.hasNext();) {
 				oldAcceptionBucket = (AcceptionBucketFace) iter.next();
 				iter.remove();
 				oldAcceptionBucket.setAcception((Acception) null);
@@ -279,11 +272,9 @@ public class Acception extends PojoSupport<Acception> implements Serializable,
 		return expertAvoids.iterator();
 	}
 
-	public void setExpertAvoids(
-			java.util.Collection<? extends ExpertAvoidsFace> newExpertAvoids) {
+	public void setExpertAvoids(java.util.Collection<? extends ExpertAvoidsFace> newExpertAvoids) {
 		removeAllExpertAvoids();
-		for (java.util.Iterator<? extends ExpertAvoidsFace> iter = newExpertAvoids
-				.iterator(); iter.hasNext();)
+		for (java.util.Iterator<? extends ExpertAvoidsFace> iter = newExpertAvoids.iterator(); iter.hasNext();)
 			addExpertAvoids((ExpertAvoidsFace) iter.next());
 	}
 
@@ -330,8 +321,7 @@ public class Acception extends PojoSupport<Acception> implements Serializable,
 	public void removeAllExpertAvoids() {
 		if (expertAvoids != null) {
 			ExpertAvoidsFace oldExpertAvoids;
-			for (java.util.Iterator<ExpertAvoidsFace> iter = getIteratorExpertAvoids(); iter
-					.hasNext();) {
+			for (java.util.Iterator<ExpertAvoidsFace> iter = getIteratorExpertAvoids(); iter.hasNext();) {
 				oldExpertAvoids = (ExpertAvoidsFace) iter.next();
 				iter.remove();
 				oldExpertAvoids.setAcception((Acception) null);
@@ -355,8 +345,7 @@ public class Acception extends PojoSupport<Acception> implements Serializable,
 
 	public void setResult(java.util.Collection<? extends ResultFace> newResult) {
 		removeAllResult();
-		for (java.util.Iterator<? extends ResultFace> iter = newResult
-				.iterator(); iter.hasNext();)
+		for (java.util.Iterator<? extends ResultFace> iter = newResult.iterator(); iter.hasNext();)
 			addResult((ResultFace) iter.next());
 	}
 
@@ -403,8 +392,7 @@ public class Acception extends PojoSupport<Acception> implements Serializable,
 	public void removeAllResult() {
 		if (result != null) {
 			ResultFace oldResult;
-			for (java.util.Iterator<ResultFace> iter = getIteratorResult(); iter
-					.hasNext();) {
+			for (java.util.Iterator<ResultFace> iter = getIteratorResult(); iter.hasNext();) {
 				oldResult = (ResultFace) iter.next();
 				iter.remove();
 				oldResult.setAcception((Acception) null);

@@ -2,21 +2,19 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.io.Serializable;
 
-import limeng32.mirage.util.pojo.PojoSupport;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
-
 import org.apache.ibatis.type.JdbcType;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 import cn.chinaunicom.awarding.expert.face.ExpertTeamFace;
 import cn.chinaunicom.awarding.expert.face.ResultFace;
 import cn.chinaunicom.awarding.expert.face.VoteFace;
-
-import com.alibaba.fastjson.annotation.JSONField;
+import indi.mybatis.flying.annotations.FieldMapperAnnotation;
+import indi.mybatis.flying.annotations.TableMapperAnnotation;
+import limeng32.mirage.util.pojo.PojoSupport;
 
 @TableMapperAnnotation(tableName = "award")
-public class Award extends PojoSupport<Award> implements Serializable,
-		cn.chinaunicom.awarding.expert.face.AwardFace {
+public class Award extends PojoSupport<Award> implements Serializable, cn.chinaunicom.awarding.expert.face.AwardFace {
 
 	private static final long serialVersionUID = 1L;
 
@@ -72,8 +70,7 @@ public class Award extends PojoSupport<Award> implements Serializable,
 
 	public void setVote(java.util.Collection<? extends VoteFace> newVote) {
 		removeAllVote();
-		for (java.util.Iterator<? extends VoteFace> iter = newVote.iterator(); iter
-				.hasNext();)
+		for (java.util.Iterator<? extends VoteFace> iter = newVote.iterator(); iter.hasNext();)
 			addVote((VoteFace) iter.next());
 	}
 
@@ -120,8 +117,7 @@ public class Award extends PojoSupport<Award> implements Serializable,
 	public void removeAllVote() {
 		if (vote != null) {
 			VoteFace oldVote;
-			for (java.util.Iterator<VoteFace> iter = getIteratorVote(); iter
-					.hasNext();) {
+			for (java.util.Iterator<VoteFace> iter = getIteratorVote(); iter.hasNext();) {
 				oldVote = (VoteFace) iter.next();
 				iter.remove();
 				oldVote.setAward((Award) null);
@@ -145,8 +141,7 @@ public class Award extends PojoSupport<Award> implements Serializable,
 
 	public void setResult(java.util.Collection<? extends ResultFace> newResult) {
 		removeAllResult();
-		for (java.util.Iterator<? extends ResultFace> iter = newResult
-				.iterator(); iter.hasNext();)
+		for (java.util.Iterator<? extends ResultFace> iter = newResult.iterator(); iter.hasNext();)
 			addResult((ResultFace) iter.next());
 	}
 
@@ -193,8 +188,7 @@ public class Award extends PojoSupport<Award> implements Serializable,
 	public void removeAllResult() {
 		if (result != null) {
 			ResultFace oldResult;
-			for (java.util.Iterator<ResultFace> iter = getIteratorResult(); iter
-					.hasNext();) {
+			for (java.util.Iterator<ResultFace> iter = getIteratorResult(); iter.hasNext();) {
 				oldResult = (ResultFace) iter.next();
 				iter.remove();
 				oldResult.setAward((Award) null);
@@ -216,11 +210,9 @@ public class Award extends PojoSupport<Award> implements Serializable,
 		return expertTeam.iterator();
 	}
 
-	public void setExpertTeam(
-			java.util.Collection<? extends ExpertTeamFace> newExpertTeam) {
+	public void setExpertTeam(java.util.Collection<? extends ExpertTeamFace> newExpertTeam) {
 		removeAllExpertTeam();
-		for (java.util.Iterator<? extends ExpertTeamFace> iter = newExpertTeam
-				.iterator(); iter.hasNext();)
+		for (java.util.Iterator<? extends ExpertTeamFace> iter = newExpertTeam.iterator(); iter.hasNext();)
 			addExpertTeam((ExpertTeamFace) iter.next());
 	}
 
@@ -267,8 +259,7 @@ public class Award extends PojoSupport<Award> implements Serializable,
 	public void removeAllExpertTeam() {
 		if (expertTeam != null) {
 			ExpertTeamFace oldExpertTeam;
-			for (java.util.Iterator<ExpertTeamFace> iter = getIteratorExpertTeam(); iter
-					.hasNext();) {
+			for (java.util.Iterator<ExpertTeamFace> iter = getIteratorExpertTeam(); iter.hasNext();) {
 				oldExpertTeam = (ExpertTeamFace) iter.next();
 				iter.remove();
 				oldExpertTeam.setAward((Award) null);

@@ -2,22 +2,20 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.io.Serializable;
 
-import limeng32.mirage.util.pojo.PojoSupport;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
-
 import org.apache.ibatis.type.JdbcType;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 import cn.chinaunicom.awarding.expert.enums.AwardLevel;
 import cn.chinaunicom.awarding.expert.face.GalleryFace;
 import cn.chinaunicom.awarding.project.persist.Task;
-
-import com.alibaba.fastjson.annotation.JSONField;
+import indi.mybatis.flying.annotations.FieldMapperAnnotation;
+import indi.mybatis.flying.annotations.TableMapperAnnotation;
+import limeng32.mirage.util.pojo.PojoSupport;
 
 @TableMapperAnnotation(tableName = "result")
 public class Result extends PojoSupport<Result> implements Serializable,
-		cn.chinaunicom.awarding.project.face.ResultFace,
-		cn.chinaunicom.awarding.expert.face.ResultFace {
+		cn.chinaunicom.awarding.project.face.ResultFace, cn.chinaunicom.awarding.expert.face.ResultFace {
 
 	private static final long serialVersionUID = 1L;
 
@@ -143,11 +141,9 @@ public class Result extends PojoSupport<Result> implements Serializable,
 		return gallery.iterator();
 	}
 
-	public void setGallery(
-			java.util.Collection<? extends GalleryFace> newGallery) {
+	public void setGallery(java.util.Collection<? extends GalleryFace> newGallery) {
 		removeAllGallery();
-		for (java.util.Iterator<? extends GalleryFace> iter = newGallery
-				.iterator(); iter.hasNext();)
+		for (java.util.Iterator<? extends GalleryFace> iter = newGallery.iterator(); iter.hasNext();)
 			addGallery((GalleryFace) iter.next());
 	}
 
@@ -194,8 +190,7 @@ public class Result extends PojoSupport<Result> implements Serializable,
 	public void removeAllGallery() {
 		if (gallery != null) {
 			GalleryFace oldGallery;
-			for (java.util.Iterator<GalleryFace> iter = getIteratorGallery(); iter
-					.hasNext();) {
+			for (java.util.Iterator<GalleryFace> iter = getIteratorGallery(); iter.hasNext();) {
 				oldGallery = (GalleryFace) iter.next();
 				iter.remove();
 				oldGallery.setResult((Result) null);

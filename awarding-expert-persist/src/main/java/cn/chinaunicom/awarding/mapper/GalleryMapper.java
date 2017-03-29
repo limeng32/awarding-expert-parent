@@ -4,10 +4,10 @@ import java.util.Collection;
 
 import cn.chinaunicom.awarding.expert.persist.Gallery;
 import cn.chinaunicom.awarding.expert.persist.Result;
+import indi.mybatis.flying.annotations.CacheAnnotation;
+import indi.mybatis.flying.annotations.CacheRoleAnnotation;
+import indi.mybatis.flying.statics.CacheRoleType;
 import limeng32.mirage.util.mapper.MapperFace;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheAnnotation;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheRoleAnnotation;
-import limeng32.mybatis.mybatisPlugin.cachePlugin.annotation.CacheRoleType;
 
 @CacheRoleAnnotation(ObserverClass = { Result.class }, TriggerClass = { Gallery.class })
 public interface GalleryMapper extends MapperFace<Gallery> {

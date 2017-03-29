@@ -2,21 +2,19 @@ package cn.chinaunicom.awarding.expert.persist;
 
 import java.io.Serializable;
 
-import limeng32.mirage.util.pojo.PojoSupport;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.FieldMapperAnnotation;
-import limeng32.mybatis.mybatisPlugin.mapperPlugin.annotation.TableMapperAnnotation;
-
 import org.apache.ibatis.type.JdbcType;
-
-import cn.chinaunicom.awarding.expert.face.ExpertTeamExpertFace;
-import cn.chinaunicom.awarding.project.persist.Task;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import cn.chinaunicom.awarding.expert.face.ExpertTeamExpertFace;
+import cn.chinaunicom.awarding.project.persist.Task;
+import indi.mybatis.flying.annotations.FieldMapperAnnotation;
+import indi.mybatis.flying.annotations.TableMapperAnnotation;
+import limeng32.mirage.util.pojo.PojoSupport;
+
 @TableMapperAnnotation(tableName = "expertTeam")
-public class ExpertTeam extends PojoSupport<ExpertTeam> implements
-		Serializable, cn.chinaunicom.awarding.project.face.ExpertTeamFace,
-		cn.chinaunicom.awarding.expert.face.ExpertTeamFace {
+public class ExpertTeam extends PojoSupport<ExpertTeam> implements Serializable,
+		cn.chinaunicom.awarding.project.face.ExpertTeamFace, cn.chinaunicom.awarding.expert.face.ExpertTeamFace {
 
 	private static final long serialVersionUID = 1L;
 
@@ -110,11 +108,9 @@ public class ExpertTeam extends PojoSupport<ExpertTeam> implements
 		return expertTeamExpert.iterator();
 	}
 
-	public void setExpertTeamExpert(
-			java.util.Collection<? extends ExpertTeamExpertFace> newExpertTeamExpert) {
+	public void setExpertTeamExpert(java.util.Collection<? extends ExpertTeamExpertFace> newExpertTeamExpert) {
 		removeAllExpertTeamExpert();
-		for (java.util.Iterator<? extends ExpertTeamExpertFace> iter = newExpertTeamExpert
-				.iterator(); iter.hasNext();)
+		for (java.util.Iterator<? extends ExpertTeamExpertFace> iter = newExpertTeamExpert.iterator(); iter.hasNext();)
 			addExpertTeamExpert((ExpertTeamExpertFace) iter.next());
 	}
 
@@ -161,8 +157,7 @@ public class ExpertTeam extends PojoSupport<ExpertTeam> implements
 	public void removeAllExpertTeamExpert() {
 		if (expertTeamExpert != null) {
 			ExpertTeamExpertFace oldExpertTeamExpert;
-			for (java.util.Iterator<ExpertTeamExpertFace> iter = getIteratorExpertTeamExpert(); iter
-					.hasNext();) {
+			for (java.util.Iterator<ExpertTeamExpertFace> iter = getIteratorExpertTeamExpert(); iter.hasNext();) {
 				oldExpertTeamExpert = (ExpertTeamExpertFace) iter.next();
 				iter.remove();
 				oldExpertTeamExpert.setExpertTeam((ExpertTeam) null);
