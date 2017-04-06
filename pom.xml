@@ -37,7 +37,7 @@
 		<mybatis-by-limeng32.version>3.2.5.0</mybatis-by-limeng32.version>
 		<awarding-core-parent.version>0.0.1-SNAPSHOT</awarding-core-parent.version>
 		<fileupload.version>1.3.1</fileupload.version>
-		<mybatis.flying.version>0.1.1</mybatis.flying.version>
+		<mybatis.flying.version>0.1.2</mybatis.flying.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
