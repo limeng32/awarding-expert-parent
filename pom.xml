@@ -37,7 +37,7 @@
 		<mybatis-by-limeng32.version>3.2.5.0</mybatis-by-limeng32.version>
 		<awarding-core-parent.version>0.0.1-SNAPSHOT</awarding-core-parent.version>
 		<fileupload.version>1.3.1</fileupload.version>
-		<mybatis.flying.version>0.1.2</mybatis.flying.version>
+		<mybatis.flying.version>0.7.0</mybatis.flying.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -278,7 +278,7 @@
 				<version>${awarding-project-parent.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>indi.mybatis</groupId>
+				<groupId>com.github.limeng32</groupId>
 				<artifactId>mybatis.flying</artifactId>
 				<version>${mybatis.flying.version}</version>
 				<exclusions>
