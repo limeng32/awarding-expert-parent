@@ -38,7 +38,7 @@ public class AcceptionBucketTest {
 	@Test
 	@IfProfileValue(name = "VOLATILE", value = "true")
 	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/cn/chinaunicom/awarding/expert/persist/acceptionBucketTest/testSelect.xml")
-	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/acceptionBucketTest/testSelect.result.xml")
+	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/cn/chinaunicom/awarding/expert/persist/acceptionBucketTest/testSelect.result.xml")
 	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/acceptionBucketTest/testSelect.result.xml")
 	public void testSelect() {
 		Acception acception = accpetionService.select("a");
@@ -59,7 +59,7 @@ public class AcceptionBucketTest {
 	@Test
 	@IfProfileValue(name = "CACHE", value = "true")
 	@DatabaseSetup(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/acceptionBucketTest/testCache.xml")
-	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/cn/chinaunicom/awarding/expert/persist/acceptionBucketTest/testCache.result.xml")
+	@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/cn/chinaunicom/awarding/expert/persist/acceptionBucketTest/testCache.result.xml")
 	@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/cn/chinaunicom/awarding/expert/persist/acceptionBucketTest/testCache.result.xml")
 	public void testCache() {
 		Acception a = new Acception();

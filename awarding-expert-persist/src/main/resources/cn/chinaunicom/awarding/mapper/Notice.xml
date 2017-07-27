@@ -11,7 +11,7 @@
 
 	<insert id="insert">
 		<selectKey keyProperty="id" resultType="String" order="BEFORE">
-			select replace(uuid(), '-', '')
+			select replace(${sql.uuid}, '-', '')
 		</selectKey>
 	</insert>
 
